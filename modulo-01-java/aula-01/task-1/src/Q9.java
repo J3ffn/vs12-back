@@ -8,14 +8,18 @@ public class Q9 {
 
         int horaInicio, minutosInicio;
 
-        horaInicio = entrada.nextInt();
-        minutosInicio = entrada.nextInt();
-
         int horaTermino, minutosTermino;
 
+        System.out.print("hora início: ");
         horaTermino = entrada.nextInt();
+        System.out.print("Minuto início: ");
         minutosTermino = entrada.nextInt();
-        
+
+        System.out.print("hora termino: ");
+        horaInicio = entrada.nextInt();
+        System.out.print("Minuto término: ");
+        minutosInicio = entrada.nextInt();
+
         int calculoHoras = horaTermino - horaInicio;
         if (calculoHoras <= 0) {
             calculoHoras = 24 - (calculoHoras * -1);

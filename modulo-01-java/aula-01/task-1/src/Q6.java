@@ -6,7 +6,7 @@ public class Q6 {
 
         Scanner entrada = new Scanner(System.in);
 
-        float totalEleitores, totalVotos, brancos, nulos, validos;
+        float totalEleitores, brancos, nulos, validos;
 
         System.out.print("Total de eleitores: ");
         totalEleitores = entrada.nextFloat();
