@@ -15,19 +15,22 @@ public class Q9 {
 
         horaTermino = entrada.nextInt();
         minutosTermino = entrada.nextInt();
-
-        if (horaTermino == horaInicio && minutosTermino == minutosInicio) {
-            System.out.println("Tempo limite de jogatina atingido");
-        }
-
+        
         int calculoHoras = horaTermino - horaInicio;
-        if (calculoHoras < 0) {
+        if (calculoHoras <= 0) {
             calculoHoras = 24 - (calculoHoras * -1);
         }
 
         int calculoMinutos = minutosInicio - minutosTermino;
         if (calculoMinutos < 0) {
-            calculoMinutos = calculoMinutos * -1;
+            calculoMinutos *= -1;
+        } else {
+            --calculoHoras;
+            calculoMinutos = 60 - calculoMinutos;
+        }
+
+        if (calculoHoras >= 24 && calculoMinutos >= 0) {
+            System.out.println("Tempo limite de jogatina atingido");
         }
 
         System.out.println("Tempo de jogatina: " + calculoHoras + ":" + calculoMinutos + "h");

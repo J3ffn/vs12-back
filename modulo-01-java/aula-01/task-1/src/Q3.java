@@ -80,7 +80,6 @@ public class Q3 {
             case "poderia":
                 System.out.println("Could");
                 break;
-
             default:
                 System.out.println("Essa palavra não é válida.");
         }

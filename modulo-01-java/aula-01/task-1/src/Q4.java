@@ -1,4 +1,5 @@
 public class Q4 {
+
     public static void main(String[] args) {
 
         int vA = 10, vB = 20;
