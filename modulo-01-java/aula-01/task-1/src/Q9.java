@@ -10,15 +10,16 @@ public class Q9 {
 
         int horaTermino, minutosTermino;
 
+        // os inputs estavam trocados 😂
         System.out.print("hora início: ");
-        horaTermino = entrada.nextInt();
+        horaInicio = entrada.nextInt();
         System.out.print("Minuto início: ");
-        minutosTermino = entrada.nextInt();
+        minutosInicio = entrada.nextInt();
 
         System.out.print("hora termino: ");
-        horaInicio = entrada.nextInt();
+        horaTermino = entrada.nextInt();
         System.out.print("Minuto término: ");
-        minutosInicio = entrada.nextInt();
+        minutosTermino = entrada.nextInt();
 
         int calculoHoras = horaTermino - horaInicio;
         if (calculoHoras <= 0) {
@@ -26,7 +27,7 @@ public class Q9 {
         }
 
         int calculoMinutos = minutosInicio - minutosTermino;
-        if (calculoMinutos < 0) {
+        if (calculoMinutos <= 0) {
             calculoMinutos *= -1;
         } else {
             --calculoHoras;
