@@ -10,7 +10,7 @@ public class Q9 {
 
         int horaTermino, minutosTermino;
 
-        // os inputs estavam trocados 😂
+        // os inputs estavam trocados
         System.out.print("hora início: ");
         horaInicio = entrada.nextInt();
         System.out.print("Minuto início: ");
