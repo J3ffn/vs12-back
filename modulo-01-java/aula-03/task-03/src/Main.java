@@ -43,13 +43,13 @@ public class Main {
         Cliente jeff = new Cliente();
         jeff.nome = "Jeff";
         jeff.contatos = new Contato[]{mae, tia, mercadoMartins};
-        jeff.CPF = "123.456.789-01";
+        jeff.cpf = "123.456.789-01";
         jeff.enderecos = new Endereco[]{conceicao, monteiro};
 
         Cliente bruna = new Cliente();
         bruna.nome = "Bruna";
         bruna.contatos = new Contato[]{mercadoMartins};
-        bruna.CPF = "743.245.539-73";
+        bruna.cpf = "743.245.539-73";
         bruna.enderecos = new Endereco[]{monteiro};
 
         // Criação ContaCorrente:
