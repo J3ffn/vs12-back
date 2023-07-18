@@ -27,6 +27,7 @@ public class Main {
         conceicao.logradouro = "Rua João Juvenal";
         conceicao.numero = 200;
         conceicao.complemento = "Primeiro andar";
+        conceicao.tipo = 1;
 
         Endereco monteiro = new Endereco();
         monteiro.pais = "Brasil";
@@ -36,6 +37,7 @@ public class Main {
         monteiro.logradouro = "Rua Luíz Romão de Melo";
         monteiro.numero = 0;
         monteiro.complemento = "Condomínio de Waguinho";
+        monteiro.tipo = 1;
 
         // Criação Cliente:
         Cliente jeff = new Cliente();
