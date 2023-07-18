@@ -2,7 +2,7 @@ public class Cliente {
 
     String nome;
 
-    String CPF;
+    String cpf;
 
     Contato[] contatos = new Contato[2];
 
@@ -21,7 +21,7 @@ public class Cliente {
     }
 
     public void imprimirCliente() {
-        System.out.println(nome + " CPF: " + CPF);
+        System.out.println(nome + " CPF: " + cpf);
     }
 
 }
