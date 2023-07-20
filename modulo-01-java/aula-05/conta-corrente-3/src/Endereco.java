@@ -1,20 +1,20 @@
 public class Endereco {
 
-    int tipo;
+    private int tipo;
 
-    String logradouro;
+    private String logradouro;
 
-    int numero;
+    private int numero;
 
-    String complemento;
+    private String complemento;
 
-    String cep;
+    private String cep;
 
-    String cidade;
+    private String cidade;
 
-    String estado;
+    private String estado;
 
-    String pais;
+    private String pais;
 
     public Endereco(String pais, String estado, String cidade, String cep, String logradouro, int numero, String complemento,  int tipo) {
         this.pais = pais;
