@@ -1,0 +1,391 @@
+{
+	"info": {
+		"_postman_id": "f5dc674c-e726-4a2b-af56-920ee5afb733",
+		"name": "vemser-hml",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25470825"
+	},
+	"item": [
+		{
+			"name": "/auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"login\": \"admin\",\r\n  \"senha\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/dbc-pessoa-api/auth",
+					"protocol": "http",
+					"host": [
+						"vemser-hml",
+						"dbccompany",
+						"com",
+						"br"
+					],
+					"port": "39000",
+					"path": [
+						"vemser",
+						"dbc-pessoa-api",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pessoa",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ2ZW1zZXItYXBpIiwianRpIjoiMiIsImNhcmdvcyI6WyJST0xFX1VTVUFSSU8iLCJST0xFX01BUktFVElORyIsIlJPTEVfQURNSU4iXSwiaWF0IjoxNjkwODQwMjY3LCJleHAiOjE2OTA5MjY2Njd9.MrsyU4RVn5xQCH2mQuyY5svBBTHl2QYs0fqOkbTIExk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/dbc-pessoa-api/pessoa",
+					"protocol": "http",
+					"host": [
+						"vemser-hml",
+						"dbccompany",
+						"com",
+						"br"
+					],
+					"port": "39000",
+					"path": [
+						"vemser",
+						"dbc-pessoa-api",
+						"pessoa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pessoa/{id}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ2ZW1zZXItYXBpIiwianRpIjoiMiIsImNhcmdvcyI6WyJST0xFX1VTVUFSSU8iLCJST0xFX01BUktFVElORyIsIlJPTEVfQURNSU4iXSwiaWF0IjoxNjkwODQwMjY3LCJleHAiOjE2OTA5MjY2Njd9.MrsyU4RVn5xQCH2mQuyY5svBBTHl2QYs0fqOkbTIExk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Alteração Realizada\",\r\n    \"dataNascimento\": \"1989-10-07\",\r\n    \"cpf\": \"86607305857\",\r\n    \"email\": \"brian.cartwright@yahoo.com\",\r\n    \"idPessoa\": 10545\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/dbc-pessoa-api/pessoa/10545",
+					"protocol": "http",
+					"host": [
+						"vemser-hml",
+						"dbccompany",
+						"com",
+						"br"
+					],
+					"port": "39000",
+					"path": [
+						"vemser",
+						"dbc-pessoa-api",
+						"pessoa",
+						"10545"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pessoa/{id}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ2ZW1zZXItYXBpIiwianRpIjoiMiIsImNhcmdvcyI6WyJST0xFX1VTVUFSSU8iLCJST0xFX01BUktFVElORyIsIlJPTEVfQURNSU4iXSwiaWF0IjoxNjkwODQwMjY3LCJleHAiOjE2OTA5MjY2Njd9.MrsyU4RVn5xQCH2mQuyY5svBBTHl2QYs0fqOkbTIExk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/dbc-pessoa-api/pessoa/10545",
+					"protocol": "http",
+					"host": [
+						"vemser-hml",
+						"dbccompany",
+						"com",
+						"br"
+					],
+					"port": "39000",
+					"path": [
+						"vemser",
+						"dbc-pessoa-api",
+						"pessoa",
+						"10545"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pessoa",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ2ZW1zZXItYXBpIiwianRpIjoiMiIsImNhcmdvcyI6WyJST0xFX1VTVUFSSU8iLCJST0xFX01BUktFVElORyIsIlJPTEVfQURNSU4iXSwiaWF0IjoxNjkwODQwMjY3LCJleHAiOjE2OTA5MjY2Njd9.MrsyU4RVn5xQCH2mQuyY5svBBTHl2QYs0fqOkbTIExk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"NOVO PELO POST\",\r\n    \"dataNascimento\": \"1989-10-07\",\r\n    \"cpf\": \"86607305857\",\r\n    \"email\": \"brian.cartwright@yahoo.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/dbc-pessoa-api/pessoa",
+					"protocol": "http",
+					"host": [
+						"vemser-hml",
+						"dbccompany",
+						"com",
+						"br"
+					],
+					"port": "39000",
+					"path": [
+						"vemser",
+						"dbc-pessoa-api",
+						"pessoa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/contato",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ2ZW1zZXItYXBpIiwianRpIjoiMiIsImNhcmdvcyI6WyJST0xFX1VTVUFSSU8iLCJST0xFX01BUktFVElORyIsIlJPTEVfQURNSU4iXSwiaWF0IjoxNjkwODQwMjY3LCJleHAiOjE2OTA5MjY2Njd9.MrsyU4RVn5xQCH2mQuyY5svBBTHl2QYs0fqOkbTIExk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/dbc-pessoa-api/contato",
+					"protocol": "http",
+					"host": [
+						"vemser-hml",
+						"dbccompany",
+						"com",
+						"br"
+					],
+					"port": "39000",
+					"path": [
+						"vemser",
+						"dbc-pessoa-api",
+						"contato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/contato/{idPessoa}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ2ZW1zZXItYXBpIiwianRpIjoiMiIsImNhcmdvcyI6WyJST0xFX1VTVUFSSU8iLCJST0xFX01BUktFVElORyIsIlJPTEVfQURNSU4iXSwiaWF0IjoxNjkwODQwMjY3LCJleHAiOjE2OTA5MjY2Njd9.MrsyU4RVn5xQCH2mQuyY5svBBTHl2QYs0fqOkbTIExk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/dbc-pessoa-api/contato/9959",
+					"protocol": "http",
+					"host": [
+						"vemser-hml",
+						"dbccompany",
+						"com",
+						"br"
+					],
+					"port": "39000",
+					"path": [
+						"vemser",
+						"dbc-pessoa-api",
+						"contato",
+						"9959"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/contato/{idPessoa}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ2ZW1zZXItYXBpIiwianRpIjoiMiIsImNhcmdvcyI6WyJST0xFX1VTVUFSSU8iLCJST0xFX01BUktFVElORyIsIlJPTEVfQURNSU4iXSwiaWF0IjoxNjkwODQwMjY3LCJleHAiOjE2OTA5MjY2Njd9.MrsyU4RVn5xQCH2mQuyY5svBBTHl2QYs0fqOkbTIExk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tipoContato\": \"COMERCIAL\",\r\n    \"telefone\": \"(71)98765-4321\",\r\n    \"descricao\": \"telefone\",\r\n    \"idContato\": 1793\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/dbc-pessoa-api/contato/9959",
+					"protocol": "http",
+					"host": [
+						"vemser-hml",
+						"dbccompany",
+						"com",
+						"br"
+					],
+					"port": "39000",
+					"path": [
+						"vemser",
+						"dbc-pessoa-api",
+						"contato",
+						"9959"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/contato/{idPessoa}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ2ZW1zZXItYXBpIiwianRpIjoiMiIsImNhcmdvcyI6WyJST0xFX1VTVUFSSU8iLCJST0xFX01BUktFVElORyIsIlJPTEVfQURNSU4iXSwiaWF0IjoxNjkwODQwMjY3LCJleHAiOjE2OTA5MjY2Njd9.MrsyU4RVn5xQCH2mQuyY5svBBTHl2QYs0fqOkbTIExk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idPessoa\": 9951,\r\n    \"tipoContato\": \"COMERCIAL\",\r\n    \"telefone\": \"(83)98765-4321\",\r\n    \"descricao\": \"telefone\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/dbc-pessoa-api/contato/1793",
+					"protocol": "http",
+					"host": [
+						"vemser-hml",
+						"dbccompany",
+						"com",
+						"br"
+					],
+					"port": "39000",
+					"path": [
+						"vemser",
+						"dbc-pessoa-api",
+						"contato",
+						"1793"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/contato/{idContato}",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ2ZW1zZXItYXBpIiwianRpIjoiMiIsImNhcmdvcyI6WyJST0xFX1VTVUFSSU8iLCJST0xFX01BUktFVElORyIsIlJPTEVfQURNSU4iXSwiaWF0IjoxNjkwODQwMjY3LCJleHAiOjE2OTA5MjY2Njd9.MrsyU4RVn5xQCH2mQuyY5svBBTHl2QYs0fqOkbTIExk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://vemser-hml.dbccompany.com.br:39000/vemser/dbc-pessoa-api/contato/1796",
+					"protocol": "http",
+					"host": [
+						"vemser-hml",
+						"dbccompany",
+						"com",
+						"br"
+					],
+					"port": "39000",
+					"path": [
+						"vemser",
+						"dbc-pessoa-api",
+						"contato",
+						"1796"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
