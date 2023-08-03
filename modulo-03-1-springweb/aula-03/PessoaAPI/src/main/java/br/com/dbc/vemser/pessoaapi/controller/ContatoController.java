@@ -23,7 +23,7 @@ public class ContatoController {
         return contatoService.list();
     }
 
-    @GetMapping("/byname")
+    @GetMapping("/byname") // GET localhost:8080/pessoa/byname?nome=Rafa
     public List<Contato> listByDescricao(@RequestParam("descricao") String descricao) throws Exception {
         return contatoService.listByDescricao(descricao);
     }
@@ -33,7 +33,7 @@ public class ContatoController {
         return contatoService.getContatosByIdUsuario(idPessoa);
     }
 
-    @PostMapping
+    @PostMapping // POST localhost:8080/pessoa
     public Contato create(@RequestBody Contato contato) throws Exception {
         return contatoService.create(contato);
     }

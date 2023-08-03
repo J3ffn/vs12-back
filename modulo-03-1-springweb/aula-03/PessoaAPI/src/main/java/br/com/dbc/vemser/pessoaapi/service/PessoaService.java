@@ -20,6 +20,9 @@ public class PessoaService {
     }
 
     public Pessoa create(Pessoa pessoa) throws Exception {
+        if (ObjectUtils.anyNull(pessoa) || StringUtils.isBlank(pessoa.getDataNascimento().toString())) {
+            throw new Exception("Pessoa inválida!");
+        }
         return pessoaRepository.create(pessoa);
     }
 
@@ -28,6 +31,7 @@ public class PessoaService {
     }
 
     public Pessoa update(Integer id, Pessoa pessoaAtualizar) throws Exception {
+//        if (pessoaAtualizar == null || )
         Pessoa pessoaRecuperada = getPessoa(id);
 
         pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());

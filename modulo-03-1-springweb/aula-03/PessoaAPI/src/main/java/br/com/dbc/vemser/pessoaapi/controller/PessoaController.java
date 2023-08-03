@@ -28,6 +28,11 @@ public class PessoaController {
         return pessoaService.listByName(nome);
     }
 
+//    @GetMapping("/{id}/contatos")
+//    public RedirectView getContatosById(@PathVariable Integer id) {
+//        return pessoaService.getContatosById(id);
+//    }
+
     @PostMapping
     public Pessoa create(@RequestBody Pessoa pessoa) throws Exception {
         return pessoaService.create(pessoa);
