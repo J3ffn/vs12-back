@@ -1,7 +1,10 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.entity.Contato;
+import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +20,10 @@ public class ContatoService {
         this.contatoRepository = contatoRepository;
     }
 
-    public Contato create(Contato contato) throws Exception {
+    public Contato create(Contato contato) {
+//        if (StringUtils.isBlank(contato.getDescricao())) {
+//            throw new Exception("Contato inválido");
+//        }
         return contatoRepository.create(contato);
     }
 
@@ -26,6 +32,9 @@ public class ContatoService {
     }
 
     public Contato update(Integer id, Contato contatoAtualizar) throws Exception {
+//        if (ObjectUtils.anyNull(contatoAtualizar)) {
+//            throw new Exception("Contato inválido!");
+//        }
 
         Contato contatoRecuperada = getContato(id);
 
@@ -43,7 +52,10 @@ public class ContatoService {
         contatoRepository.delete(contatoRecuperada);
     }
 
-    public List<Contato> listByDescricao(String descricao) {
+    public List<Contato> listByDescricao(String descricao) throws Exception {
+//        if (StringUtils.isBlank(descricao)) {
+//            throw new Exception("Descrição vazia");
+//        }
         return contatoRepository.listByDescricao(descricao);
     }
 
@@ -55,7 +67,7 @@ public class ContatoService {
         return contatoRepository.list().stream()
                 .filter(contato -> contato.getIdContato().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Contato não encontrado!"));
+                .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado!"));
     }
 
 }

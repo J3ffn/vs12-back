@@ -1,14 +1,28 @@
 package br.com.dbc.vemser.pessoaapi.entity;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 public class Contato {
+
     private Integer idContato;
+
+    @NotNull
     private Integer idPessoa;
+
+    @NotNull
     private TipoContato tipoContato;
+
+    @NotNull
+    @Positive
     private String numero;
+
+    @NotNull
+    @NotBlank
     private String descricao;
 
-    public Contato() {
-    }
+    public Contato() {}
 
     public Contato(Integer idContato, Integer idPessoa, TipoContato tipoContato, String numero, String descricao) {
         this.idContato = idContato;
