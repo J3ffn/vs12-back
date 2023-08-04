@@ -7,6 +7,7 @@ import javax.validation.constraints.Positive;
 
 public class Endereco {
 
+    @Positive
     private Integer idEndereco;
 
     @NotNull

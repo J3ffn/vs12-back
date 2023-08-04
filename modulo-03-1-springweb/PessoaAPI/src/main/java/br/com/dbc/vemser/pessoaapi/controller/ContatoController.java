@@ -8,6 +8,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @Validated
@@ -28,12 +30,12 @@ public class ContatoController {
     }
 
     @GetMapping("/byname")
-    public ResponseEntity<List<Contato>> listByDescricao(@RequestParam("descricao") String descricao) throws Exception {
+    public ResponseEntity<List<Contato>> listByDescricao(@NotBlank @RequestParam("descricao") String descricao) throws Exception {
         return ResponseEntity.ok().body(contatoService.listByDescricao(descricao));
     }
 
     @GetMapping("/pessoa/{idPessoa}")
-    public List<Contato> contatosByIdPessoa(@PathVariable("idPessoa") Integer idPessoa) {
+    public List<Contato> contatosByIdPessoa(@Positive @PathVariable("idPessoa") Integer idPessoa) {
         return contatoService.getContatosByIdUsuario(idPessoa);
     }
 
@@ -43,13 +45,13 @@ public class ContatoController {
     }
 
     @PutMapping("/{idContato}")
-    public ResponseEntity<Contato> update(@PathVariable("idContato") Integer id,
+    public ResponseEntity<Contato> update(@Positive @PathVariable("idContato") Integer id,
                                           @Valid @RequestBody Contato contatoAtualizar) throws Exception {
         return ResponseEntity.ok().body(contatoService.update(id, contatoAtualizar));
     }
 
     @DeleteMapping("/{idContato}")
-    public ResponseEntity<Void> delete(@PathVariable("idContato") Integer id) throws Exception {
+    public ResponseEntity<Void> delete(@Positive @PathVariable("idContato") Integer id) throws Exception {
         contatoService.delete(id);
         return ResponseEntity.ok().build();
     }

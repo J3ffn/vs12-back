@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -25,7 +27,7 @@ public class PessoaController {
     }
 
     @GetMapping("/byname")
-    public List<Pessoa> listByName(@Valid @RequestParam("nome") String nome) {
+    public List<Pessoa> listByName(@NotBlank @RequestParam("nome") String nome) {
         return pessoaService.listByName(nome);
     }
 
@@ -35,13 +37,13 @@ public class PessoaController {
     }
 
     @PutMapping("/{idPessoa}")
-    public Pessoa update(@PathVariable("idPessoa") Integer id,
+    public Pessoa update(@Positive @PathVariable("idPessoa") Integer id,
                          @Valid @RequestBody Pessoa pessoaAtualizar) throws Exception {
         return pessoaService.update(id, pessoaAtualizar);
     }
 
     @DeleteMapping("/{idPessoa}")
-    public void delete(@PathVariable("idPessoa") Integer id) throws Exception {
+    public void delete(@Positive @PathVariable("idPessoa") Integer id) throws Exception {
         pessoaService.delete(id);
     }
 }

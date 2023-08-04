@@ -5,20 +5,24 @@ import org.hibernate.validator.constraints.br.CPF;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 
 public class Pessoa {
 
+    @Positive
     private Integer idPessoa;
 
-    @NotNull
     @NotBlank
+    @NotNull
     private String nome;
 
     @PastOrPresent
+    @NotNull
     private LocalDate dataNascimento;
 
     @CPF
+    @NotNull
     private String cpf;
 
     public Pessoa() {}

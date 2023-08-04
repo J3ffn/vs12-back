@@ -6,6 +6,7 @@ import javax.validation.constraints.Positive;
 
 public class Contato {
 
+    @Positive
     private Integer idContato;
 
     @NotNull

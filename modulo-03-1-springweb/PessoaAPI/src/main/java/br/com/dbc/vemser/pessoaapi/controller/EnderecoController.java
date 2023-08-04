@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -28,28 +29,28 @@ public class EnderecoController {
     }
 
     @GetMapping("/{idEndereco}")
-    public ResponseEntity<Endereco> getEnderecoById(@PathVariable Integer idEndereco) throws Exception {
+    public ResponseEntity<Endereco> getEnderecoById(@Positive @PathVariable Integer idEndereco) throws Exception {
         return ResponseEntity.ok().body(enderecoService.getEnderecoById(idEndereco));
     }
 
     @GetMapping("/{idPessoa}/pessoa")
-    public ResponseEntity<List<Endereco>> getEnderecosByIdPessoa(@PathVariable Integer idPessoa) {
+    public ResponseEntity<List<Endereco>> getEnderecosByIdPessoa(@Positive @PathVariable Integer idPessoa) {
         return ResponseEntity.ok().body(enderecoService.getEnderecosByIdPessoa(idPessoa));
     }
 
     @PostMapping("/{idPessoa}")
-    public ResponseEntity<Endereco> create(@PathVariable Integer idPessoa, @Valid @RequestBody Endereco endereco) {
+    public ResponseEntity<Endereco> create(@Positive @PathVariable Integer idPessoa, @Valid @RequestBody Endereco endereco) {
         return ResponseEntity.ok().body(enderecoService.create(idPessoa, endereco));
     }
 
     @PutMapping("/{idEndereco}")
-    public ResponseEntity<Endereco> update(@PathVariable Integer idEndereco, @Valid @RequestBody Endereco endereco) throws Exception {
+    public ResponseEntity<Endereco> update(@Positive @PathVariable Integer idEndereco, @Valid @RequestBody Endereco endereco) throws Exception {
         Endereco enderecoAlterado = enderecoService.update(idEndereco, endereco);
         return ResponseEntity.status(HttpStatus.CREATED).body(enderecoAlterado);
     }
 
     @DeleteMapping("/{idEndereco}")
-    public void delete(@PathVariable Integer idEndereco) throws Exception {
+    public void delete(@Positive @PathVariable Integer idEndereco) throws Exception {
         enderecoService.delete(idEndereco);
     }
 
