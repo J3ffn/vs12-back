@@ -3,6 +3,8 @@ package br.com.dbc.vemser.pessoaapi.service;
 import br.com.dbc.vemser.pessoaapi.exception.EnumException;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.EnderecoInputDTO;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.ContatoOutputDTO;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.EnderecoOutputDTO;
 import br.com.dbc.vemser.pessoaapi.model.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.model.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.model.entity.TipoEndereco;
@@ -27,30 +29,36 @@ public class EnderecoService {
         this.objectMapper = objectMapper;
     }
 
-    public List<Endereco> list() {
-        return enderecoRepository.list();
+    public List<EnderecoOutputDTO> list() {
+        return enderecoRepository.list().stream().map(endereco -> objectMapper.convertValue(endereco, EnderecoOutputDTO.class)).toList();
     }
 
-    public List<Endereco> getEnderecosByIdPessoa(Integer idPessoa) {
+    public List<EnderecoOutputDTO> getEnderecosByIdPessoa(Integer idPessoa) {
         return list().stream()
-                .filter(contato -> contato.getIdPessoa().equals(idPessoa))
+                .filter(endereco -> endereco.getIdPessoa().equals(idPessoa))
+                .map(endereco -> objectMapper.convertValue(endereco, EnderecoOutputDTO.class))
                 .toList();
     }
 
-    public Endereco create(Integer idPessoa, EnderecoInputDTO enderecoNovo) throws Exception {
+    public EnderecoOutputDTO create(Integer idPessoa, EnderecoInputDTO enderecoNovo) throws Exception {
 
-        Pessoa pessoaPorId = pessoaService.findById(idPessoa);
+        Pessoa pessoaPorId = objectMapper.convertValue(pessoaService.findById(idPessoa), Pessoa.class);
 
         checarEnum(enderecoNovo.getTipo());
 
         Endereco endereco = objectMapper.convertValue(enderecoNovo, Endereco.class);
 
         endereco.setIdPessoa(pessoaPorId.getIdPessoa());
-        return enderecoRepository.create(endereco);
+
+        return objectMapper.convertValue(enderecoRepository.create(endereco), EnderecoOutputDTO.class);
     }
 
-    public Endereco update(Integer idEndereco, EnderecoInputDTO enderecoModificado) throws RegraDeNegocioException, EnumException {
-        Endereco enderecoResgatado = this.getEnderecoById(idEndereco);
+    public EnderecoOutputDTO update(Integer idEndereco, EnderecoInputDTO enderecoModificado) throws RegraDeNegocioException, EnumException {
+        Endereco enderecoResgatado = enderecoRepository.list()
+                .stream()
+                .filter(endereco -> endereco.getIdEndereco().equals(idEndereco))
+                .findFirst()
+                .orElseThrow(() -> new RegraDeNegocioException("Esse endereço não existe!"));
 
         this.checarEnum(enderecoModificado.getTipo());
 
@@ -64,17 +72,18 @@ public class EnderecoService {
         enderecoResgatado.setPais(enderecoModificado.getPais());
         enderecoResgatado.setTipo(TipoEndereco.valueOf(enderecoModificado.getTipo()));
 
-        return enderecoResgatado;
+        return objectMapper.convertValue(enderecoResgatado, EnderecoOutputDTO.class);
     }
 
     public void delete(Integer idEndereco) throws Exception {
-        Endereco endereco = getEnderecoById(idEndereco);
+        Endereco endereco = objectMapper.convertValue(getEnderecoById(idEndereco), Endereco.class);
         enderecoRepository.delete(endereco);
     }
 
-    public Endereco getEnderecoById(Integer idEndereco) throws RegraDeNegocioException {
-        return list().stream()
+    public EnderecoOutputDTO getEnderecoById(Integer idEndereco) throws RegraDeNegocioException {
+        return enderecoRepository.list().stream()
                 .filter(endereco -> endereco.getIdEndereco().equals(idEndereco))
+                .map(endereco -> objectMapper.convertValue(endereco, EnderecoOutputDTO.class))
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException("Endereço não encontrado!"));
     }

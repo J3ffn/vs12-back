@@ -3,6 +3,7 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.exception.EnumException;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.EnderecoInputDTO;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.EnderecoOutputDTO;
 import br.com.dbc.vemser.pessoaapi.model.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,32 +27,31 @@ public class EnderecoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Endereco>> list() {
-        List<Endereco> listaEnderecos = enderecoService.list();
-        return ResponseEntity.ok().body(listaEnderecos);
+    public ResponseEntity<List<EnderecoOutputDTO>> list() {
+        return ResponseEntity.ok().body(enderecoService.list());
     }
 
     @GetMapping("/{idEndereco}")
-    public ResponseEntity<Endereco> getEnderecoById(@Positive @PathVariable Integer idEndereco) throws Exception {
-        Endereco enderecoById = enderecoService.getEnderecoById(idEndereco);
+    public ResponseEntity<EnderecoOutputDTO> getEnderecoById(@Positive @PathVariable Integer idEndereco) throws Exception {
+        EnderecoOutputDTO enderecoById = enderecoService.getEnderecoById(idEndereco);
         return ResponseEntity.ok().body(enderecoById);
     }
 
     @GetMapping("/{idPessoa}/pessoa")
-    public ResponseEntity<List<Endereco>> getEnderecosByIdPessoa(@Positive @PathVariable Integer idPessoa) {
-        List<Endereco> enderecosByIdUsuario = enderecoService.getEnderecosByIdPessoa(idPessoa);
+    public ResponseEntity<List<EnderecoOutputDTO>> getEnderecosByIdPessoa(@Positive @PathVariable Integer idPessoa) {
+        List<EnderecoOutputDTO> enderecosByIdUsuario = enderecoService.getEnderecosByIdPessoa(idPessoa);
         return ResponseEntity.ok().body(enderecosByIdUsuario);
     }
 
     @PostMapping("/{idPessoa}")
-    public ResponseEntity<Endereco> create(@Positive @PathVariable Integer idPessoa, @Valid @RequestBody EnderecoInputDTO endereco) throws Exception {
-        Endereco enderecoCriado = enderecoService.create(idPessoa, endereco);
+    public ResponseEntity<EnderecoOutputDTO> create(@Positive @PathVariable Integer idPessoa, @Valid @RequestBody EnderecoInputDTO endereco) throws Exception {
+        EnderecoOutputDTO enderecoCriado = enderecoService.create(idPessoa, endereco);
         return ResponseEntity.ok().body(enderecoCriado);
     }
 
     @PutMapping("/{idEndereco}")
-    public ResponseEntity<Endereco> update(@Positive @PathVariable Integer idEndereco, @Valid @RequestBody EnderecoInputDTO endereco) throws RegraDeNegocioException, EnumException {
-        Endereco enderecoAlterado = enderecoService.update(idEndereco, endereco);
+    public ResponseEntity<EnderecoOutputDTO> update(@Positive @PathVariable Integer idEndereco, @Valid @RequestBody EnderecoInputDTO endereco) throws RegraDeNegocioException, EnumException {
+        EnderecoOutputDTO enderecoAlterado = enderecoService.update(idEndereco, endereco);
         return ResponseEntity.status(HttpStatus.CREATED).body(enderecoAlterado);
     }
 

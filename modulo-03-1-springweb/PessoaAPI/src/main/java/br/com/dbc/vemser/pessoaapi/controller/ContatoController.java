@@ -12,7 +12,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class ContatoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Contato>> list() {
+    public ResponseEntity<List<ContatoOutputDTO>> list() {
         return ResponseEntity.ok().body(contatoService.list());
     }
 

@@ -2,6 +2,7 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.PessoaInputDTO;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputDTO;
 import br.com.dbc.vemser.pessoaapi.model.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,23 +23,26 @@ public class PessoaService {
         this.objectMapper = objectMapper;
     }
 
-    public Pessoa create(PessoaInputDTO pessoaNova) {
+    public PessoaOutputDTO create(PessoaInputDTO pessoaNova) {
         Pessoa pessoa = objectMapper.convertValue(pessoaNova, Pessoa.class);
-        return pessoaRepository.create(pessoa);
+        return objectMapper.convertValue(pessoaRepository.create(pessoa), PessoaOutputDTO.class);
     }
 
-    public List<Pessoa> list() {
-        return pessoaRepository.list();
+    public List<PessoaOutputDTO> list() {
+        return pessoaRepository.list()
+                .stream()
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputDTO.class))
+                .toList();
     }
 
-    public Pessoa update(Integer id, PessoaInputDTO pessoaAtualizar) throws RegraDeNegocioException {
+    public PessoaOutputDTO update(Integer id, PessoaInputDTO pessoaAtualizar) throws RegraDeNegocioException {
         Pessoa pessoaRecuperada = getPessoa(id);
 
         pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
         pessoaRecuperada.setNome(pessoaAtualizar.getNome());
         pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
 
-        return pessoaRecuperada;
+        return objectMapper.convertValue(pessoaRecuperada, PessoaOutputDTO.class);
     }
 
     public void delete(Integer id) throws RegraDeNegocioException {
@@ -46,8 +50,11 @@ public class PessoaService {
         pessoaRepository.delete(pessoaRecuperada);
     }
 
-    public List<Pessoa> listByName(String nome) {
-        return pessoaRepository.listByName(nome);
+    public List<PessoaOutputDTO> listByName(String nome) {
+        return pessoaRepository.listByName(nome)
+                .stream()
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputDTO.class))
+                .toList();
     }
 
     private Pessoa getPessoa(Integer id) throws RegraDeNegocioException {
@@ -57,7 +64,7 @@ public class PessoaService {
                 .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada!"));
     }
 
-    public Pessoa findById(Integer idBuscado) throws RegraDeNegocioException {
-        return getPessoa(idBuscado);
+    public PessoaOutputDTO findById(Integer idBuscado) throws RegraDeNegocioException {
+        return objectMapper.convertValue(getPessoa(idBuscado), PessoaOutputDTO.class);
     }
 }

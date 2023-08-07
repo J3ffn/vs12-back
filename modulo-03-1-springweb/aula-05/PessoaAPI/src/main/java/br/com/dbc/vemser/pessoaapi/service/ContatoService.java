@@ -35,8 +35,11 @@ public class ContatoService {
         return objectMapper.convertValue(contatoRepository.create(contatoConvertido), ContatoOutputDTO.class);
     }
 
-    public List<Contato> list() {
-        return contatoRepository.list();
+    public List<ContatoOutputDTO> list() {
+        return contatoRepository.list()
+                .stream()
+                .map(contato -> objectMapper.convertValue(contato, ContatoOutputDTO.class))
+                .toList();
     }
 
     public ContatoOutputDTO update(Integer id, ContatoInputDTO contatoAtualizar) throws RegraDeNegocioException, EnumException {
