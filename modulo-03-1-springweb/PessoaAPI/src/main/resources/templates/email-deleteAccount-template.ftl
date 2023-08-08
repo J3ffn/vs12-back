@@ -33,9 +33,7 @@ backgrily: Arial, Helvetica, sans-serif; font-size: 13px; color: #000000; paddin
 
                         <div style="font-size: 24px; color: black;">
                             <br>
-                            <b>Estamos felizes em ter você em nosso sistema :)</b>
-                            <br>
-                            <b>Seu cadastro foi realizado com sucesso, seu identificador é ${id}.</b>
+                            <b>Você perdeu o acesso ao nosso sistema.</b>
 
                         </div>
                         <div style="font-size: 24px; color:black;">

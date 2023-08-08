@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -29,5 +30,9 @@ public class PessoaInputDTO {
     @CPF
     @NotNull
     private String cpf;
+
+    @Email
+    @NotNull
+    private String email;
 
 }
