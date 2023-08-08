@@ -9,6 +9,7 @@ import br.com.dbc.vemser.pessoaapi.utils.PropertieReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -45,12 +46,12 @@ public class PessoaController {
 
     @PutMapping("/{idPessoa}")
     public PessoaOutputDTO update(@Positive @PathVariable("idPessoa") Integer id,
-                         @Valid @RequestBody PessoaInputDTO pessoaAtualizar) throws RegraDeNegocioException {
+                         @Valid @RequestBody PessoaInputDTO pessoaAtualizar) throws RegraDeNegocioException, MessagingException {
         return pessoaService.update(id, pessoaAtualizar);
     }
 
     @DeleteMapping("/{idPessoa}")
-    public void delete(@Positive @PathVariable("idPessoa") Integer id) throws RegraDeNegocioException {
+    public void delete(@Positive @PathVariable("idPessoa") Integer id) throws RegraDeNegocioException, MessagingException {
         pessoaService.delete(id);
     }
 

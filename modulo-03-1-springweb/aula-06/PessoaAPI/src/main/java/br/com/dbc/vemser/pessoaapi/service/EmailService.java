@@ -5,6 +5,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -24,13 +25,13 @@ import java.util.Map;
 public class EmailService {
 
     private final JavaMailSender mailSender;
+
     private final Configuration fmConfiguration;
 
     private String from = "Jefferson Izaquiel <jefferson.izaquiel@dbccompany.com.br>";
 
-    private String emailSuporte = "faleconosco@dbccompany.com.br";
-
-    private String to = "jeffn.m220@gmail.com";
+    @Value("${spring.mail.username}")
+    private String emailSuporte;
 
     public void sendSimpleEmail(Pessoa pessoa) {
         SimpleMailMessage email = new SimpleMailMessage();
@@ -42,21 +43,16 @@ public class EmailService {
         mailSender.send(email);
     }
 
-    public void sendSimpleCreateAccontConfirmation(Pessoa pessoa) throws MessagingException {
-        MimeMessage emailTemplate = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(emailTemplate, true);
+    public void sendTemplateMailCreateAccontConfirmation(Pessoa pessoa) throws MessagingException {
+        sendTemplateEmail(pessoa, "email-createAccount-template.ftl");
+    }
 
-        try {
-            helper.setFrom(from);
-            helper.setTo(pessoa.getEmail());
-            helper.setSubject("email a partir de template");
-            helper.setText(getContentFromTemplate(pessoa, "email-createAccount-template.ftl"), true);
+    public void sendTemplateMailUpdateAccount(Pessoa pessoa) throws MessagingException {
+        sendTemplateEmail(pessoa, "email-updateAccount-template.ftl");
+    }
 
-            mailSender.send(helper.getMimeMessage());
-
-        } catch (IOException | TemplateException | MessagingException e) {
-            e.printStackTrace();
-        }
+    public void sendTemplateMailDeleteAccount(Pessoa pessoa) throws MessagingException {
+        sendTemplateEmail(pessoa, "email-deleteAccount-template.ftl");
     }
 
     public void sendMailWithAttachment(Pessoa pessoa) throws MessagingException {
@@ -77,7 +73,7 @@ public class EmailService {
         mailSender.send(email);
     }
 
-    public void sendTemplateEmail(Pessoa pessoa) throws MessagingException {
+    public void sendTemplateEmail(Pessoa pessoa, String template) throws MessagingException {
         MimeMessage emailTemplate = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(emailTemplate, true);
 
@@ -85,7 +81,7 @@ public class EmailService {
             helper.setFrom(from);
             helper.setTo(pessoa.getEmail());
             helper.setSubject("email a partir de template");
-            helper.setText(getContentFromTemplate(pessoa, "email-template2.ftl"), true);
+            helper.setText(getContentFromTemplate(pessoa, template), true);
 
             mailSender.send(helper.getMimeMessage());
 

@@ -16,6 +16,7 @@ import java.util.List;
 public class PessoaService {
 
     private final PessoaRepository pessoaRepository;
+
     private final ObjectMapper objectMapper;
 
     private final EmailService emailService;
@@ -28,9 +29,10 @@ public class PessoaService {
     }
 
     public PessoaOutputDTO create(PessoaInputDTO pessoaNova) throws MessagingException {
-        Pessoa pessoa = objectMapper.convertValue(pessoaNova, Pessoa.class);
-        emailService.sendSimpleCreateAccontConfirmation(pessoa);
-        return objectMapper.convertValue(pessoaRepository.create(pessoa), PessoaOutputDTO.class);
+        Pessoa pessoaConvertida = objectMapper.convertValue(pessoaNova, Pessoa.class);
+        Pessoa pessoaCriada = pessoaRepository.create(pessoaConvertida);
+        emailService.sendTemplateMailCreateAccontConfirmation(pessoaCriada);
+        return objectMapper.convertValue(pessoaCriada, PessoaOutputDTO.class);
     }
 
     public List<PessoaOutputDTO> list() {
@@ -40,19 +42,22 @@ public class PessoaService {
                 .toList();
     }
 
-    public PessoaOutputDTO update(Integer id, PessoaInputDTO pessoaAtualizar) throws RegraDeNegocioException {
+    public PessoaOutputDTO update(Integer id, PessoaInputDTO pessoaAtualizar) throws RegraDeNegocioException, MessagingException {
         Pessoa pessoaRecuperada = getPessoa(id);
 
         pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
         pessoaRecuperada.setNome(pessoaAtualizar.getNome());
         pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
 
+        emailService.sendTemplateMailUpdateAccount(pessoaRecuperada);
+
         return objectMapper.convertValue(pessoaRecuperada, PessoaOutputDTO.class);
     }
 
-    public void delete(Integer id) throws RegraDeNegocioException {
+    public void delete(Integer id) throws RegraDeNegocioException, MessagingException {
         Pessoa pessoaRecuperada = getPessoa(id);
         pessoaRepository.delete(pessoaRecuperada);
+        emailService.sendTemplateMailDeleteAccount(pessoaRecuperada);
     }
 
     public List<PessoaOutputDTO> listByName(String nome) {
