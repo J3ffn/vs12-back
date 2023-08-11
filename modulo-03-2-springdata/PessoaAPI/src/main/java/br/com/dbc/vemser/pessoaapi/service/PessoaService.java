@@ -48,6 +48,8 @@ public class PessoaService {
 
         emailService.sendTemplateMailUpdateAccount(pessoaRecuperada);
 
+        pessoaRepository.save(pessoaRecuperada);
+        
         return objectMapper.convertValue(pessoaRecuperada, PessoaOutputDTO.class);
     }
 

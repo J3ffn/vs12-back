@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -20,6 +21,7 @@ public class Contato {
     private Integer idContato;
 
     @Column(name = "id_pessoa")
+    @NotNull
     private Integer idPessoa;
 
     @Column(name = "tipo_Contato")

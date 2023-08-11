@@ -56,6 +56,8 @@ public class ContatoService {
         contatoRecuperado.setTipoContato(tipoContato);
         contatoRecuperado.setNumero(contatoAtualizar.getNumero());
 
+        contatoRepository.save(contatoRecuperado);
+
         return objectMapper.convertValue(contatoRecuperado, ContatoOutputDTO.class);
     }
 
