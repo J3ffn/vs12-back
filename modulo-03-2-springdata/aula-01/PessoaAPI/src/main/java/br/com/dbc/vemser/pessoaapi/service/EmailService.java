@@ -1,6 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.service;
 
-import br.com.dbc.vemser.pessoaapi.model.entity.Pessoa;
+import br.com.dbc.vemser.pessoaapi.model.Pessoa;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

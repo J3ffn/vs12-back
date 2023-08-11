@@ -1,4 +1,4 @@
-package br.com.dbc.vemser.pessoaapi.model.entity;
+package br.com.dbc.vemser.pessoaapi.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,5 @@
 package br.com.dbc.vemser.pessoaapi.model.dto.input;
 
-import br.com.dbc.vemser.pessoaapi.model.entity.TipoEndereco;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package br.com.dbc.vemser.pessoaapi.model.entity;
+package br.com.dbc.vemser.pessoaapi.model;
 
 import java.util.Arrays;
 
