@@ -30,9 +30,9 @@ public class Endereco {
 
     @NotNull
     @Column(name = "TipoEndereco")
-    @Enumerated
+    @Length(min = 2, max = 20)
     @Schema(description = "Tipo do contato", example = "COMERCIAL", required = true, enumAsRef = true)
-    private TipoEndereco tipoEndereco;
+    private String tipoEndereco;
 
     @NotBlank
     @NotNull

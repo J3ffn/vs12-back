@@ -53,7 +53,7 @@ public class ContatoService {
         contatoRecuperado.setIdContato(id);
         contatoRecuperado.setIdPessoa(contatoAtualizar.getIdPessoa());
         contatoRecuperado.setDescricao(contatoAtualizar.getDescricao());
-        contatoRecuperado.setTipoContato(tipoContato);
+        contatoRecuperado.setTipoContato(tipoContato.name());
         contatoRecuperado.setNumero(contatoAtualizar.getNumero());
 
         contatoRepository.save(contatoRecuperado);

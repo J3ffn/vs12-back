@@ -4,10 +4,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -33,9 +35,9 @@ public class Contato {
     @Column(name = "tipo_Contato")
     @NotNull
     @NotBlank
-    @Enumerated
+    @Length(min = 2, max = 20)
     @Schema(description = "Tipo do contato", example = "RESIDENCIAL", required = true, enumAsRef = true)
-    private TipoContato tipoContato;
+    private String tipoContato;
 
     @Column(name = "numero")
     @NotNull

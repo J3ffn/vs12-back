@@ -27,7 +27,7 @@ public class PessoaService {
         Pessoa pessoaConvertida = objectMapper.convertValue(pessoaNova, Pessoa.class);
         Pessoa pessoaCriada = pessoaRepository.save(pessoaConvertida);
 
-        emailService.sendTemplateMailCreateAccontConfirmation(pessoaCriada);
+//        emailService.sendTemplateMailCreateAccontConfirmation(pessoaCriada);
 
         return objectMapper.convertValue(pessoaCriada, PessoaOutputDTO.class);
     }

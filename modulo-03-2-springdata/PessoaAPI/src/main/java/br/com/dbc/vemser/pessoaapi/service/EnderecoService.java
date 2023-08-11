@@ -61,7 +61,7 @@ public class EnderecoService {
         enderecoResgatado.setLogradouro(enderecoModificado.getLogradouro());
         enderecoResgatado.setNumero(enderecoModificado.getNumero());
         enderecoResgatado.setPais(enderecoModificado.getPais());
-        enderecoResgatado.setTipoEndereco(TipoEndereco.valueOf(enderecoModificado.getTipoEndereco()));
+        enderecoResgatado.setTipoEndereco(enderecoModificado.getTipoEndereco());
 
         enderecoRepository.save(enderecoResgatado);
 
