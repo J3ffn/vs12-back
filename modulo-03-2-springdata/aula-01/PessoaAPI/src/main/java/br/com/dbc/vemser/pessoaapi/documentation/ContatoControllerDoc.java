@@ -1,4 +1,4 @@
-package br.com.dbc.vemser.pessoaapi.controller.doc;
+package br.com.dbc.vemser.pessoaapi.documentation;
 
 import br.com.dbc.vemser.pessoaapi.exception.EnumException;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
@@ -62,7 +62,7 @@ public interface ContatoControllerDoc {
     )
     @PutMapping("/{idContato}")
     ResponseEntity<ContatoOutputDTO> update(@Positive @PathVariable("idContato") Integer id,
-                                                   @Valid @RequestBody ContatoInputDTO contatoAtualizar) throws RegraDeNegocioException, EnumException;
+                                            @Valid @RequestBody ContatoInputDTO contatoAtualizar) throws RegraDeNegocioException, EnumException;
 
     @Operation(summary = "Deletar um contato.", description = "Deleta um contato do banco de dados.")
     @ApiResponses(

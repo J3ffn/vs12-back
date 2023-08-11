@@ -1,6 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
-import br.com.dbc.vemser.pessoaapi.controller.doc.PessoaControllerDoc;
+import br.com.dbc.vemser.pessoaapi.documentation.PessoaControllerDoc;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.PessoaInputDTO;
 import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputDTO;

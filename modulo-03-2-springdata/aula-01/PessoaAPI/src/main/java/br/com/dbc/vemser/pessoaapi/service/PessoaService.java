@@ -45,18 +45,19 @@ public class PessoaService {
         pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
         pessoaRecuperada.setNome(pessoaAtualizar.getNome());
         pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
+        pessoaRecuperada.setEmail(pessoaAtualizar.getEmail());
 
         emailService.sendTemplateMailUpdateAccount(pessoaRecuperada);
 
         pessoaRepository.save(pessoaRecuperada);
-        
+
         return objectMapper.convertValue(pessoaRecuperada, PessoaOutputDTO.class);
     }
 
     public void delete(Integer id) throws RegraDeNegocioException, MessagingException {
         Pessoa pessoaRecuperada = getPessoa(id);
         pessoaRepository.delete(pessoaRecuperada);
-        emailService.sendTemplateMailDeleteAccount(pessoaRecuperada);
+//        emailService.sendTemplateMailDeleteAccount(pessoaRecuperada);
     }
 
     public List<PessoaOutputDTO> listByName(String nome) {

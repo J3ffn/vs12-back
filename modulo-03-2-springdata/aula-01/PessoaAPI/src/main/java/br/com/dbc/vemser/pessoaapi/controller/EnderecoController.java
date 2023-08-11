@@ -1,6 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
-import br.com.dbc.vemser.pessoaapi.controller.doc.EnderecoControllerDoc;
+import br.com.dbc.vemser.pessoaapi.documentation.EnderecoControllerDoc;
 import br.com.dbc.vemser.pessoaapi.exception.EnumException;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.EnderecoInputDTO;
