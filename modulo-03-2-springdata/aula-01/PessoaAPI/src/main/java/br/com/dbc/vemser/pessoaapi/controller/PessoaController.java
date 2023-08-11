@@ -6,10 +6,7 @@ import br.com.dbc.vemser.pessoaapi.model.dto.input.PessoaInputDTO;
 import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputDTO;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import br.com.dbc.vemser.pessoaapi.utils.PropertieReader;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -33,24 +30,24 @@ public class PessoaController implements PessoaControllerDoc {
     }
 
     @GetMapping
-    public ResponseEntity<List<PessoaOutputDTO>> list() {
-        return ResponseEntity.ok().body(pessoaService.list());
+    public List<PessoaOutputDTO> list() {
+        return pessoaService.list();
     }
 
     @GetMapping("/byname")
-    public ResponseEntity<List<PessoaOutputDTO>> listByName(@NotBlank @RequestParam("nome") String nome) {
-        return ResponseEntity.status(HttpStatus.OK).body(pessoaService.listByName(nome));
+    public List<PessoaOutputDTO> listByName(@NotBlank @RequestParam("nome") String nome) {
+        return pessoaService.listByName(nome);
     }
 
     @PostMapping
-    public ResponseEntity<PessoaOutputDTO> create(@Valid @RequestBody PessoaInputDTO pessoa) throws Exception {
-        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.create(pessoa));
+    public PessoaOutputDTO create(@Valid @RequestBody PessoaInputDTO pessoa) throws Exception {
+        return pessoaService.create(pessoa);
     }
 
     @PutMapping("/{idPessoa}")
-    public ResponseEntity<PessoaOutputDTO> update(@Positive @PathVariable("idPessoa") Integer id,
+    public PessoaOutputDTO update(@Positive @PathVariable("idPessoa") Integer id,
                                   @Valid @RequestBody PessoaInputDTO pessoaAtualizar) throws RegraDeNegocioException, MessagingException {
-        return ResponseEntity.status(HttpStatus.OK).body(pessoaService.update(id, pessoaAtualizar));
+        return pessoaService.update(id, pessoaAtualizar);
     }
 
     @DeleteMapping("/{idPessoa}")
@@ -59,8 +56,8 @@ public class PessoaController implements PessoaControllerDoc {
     }
 
     @GetMapping("/{idPessoa}")
-    public ResponseEntity<PessoaOutputDTO> findById(Integer id) throws RegraDeNegocioException {
-        return ResponseEntity.status(HttpStatus.OK).body(pessoaService.findById(id));
+    public PessoaOutputDTO findById(Integer id) throws RegraDeNegocioException {
+        return pessoaService.findById(id);
     }
 
     @GetMapping("/ambiente")

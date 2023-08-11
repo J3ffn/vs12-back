@@ -6,7 +6,6 @@ import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -27,7 +26,7 @@ public interface PessoaControllerDoc {
             }
     )
     @GetMapping
-    ResponseEntity<List<PessoaOutputDTO>> list();
+    List<PessoaOutputDTO> list();
 
     @Operation(summary = "Listar pessoas pelo nome.", description = "Lista todas as pessoas do banco por um nome específico")
     @ApiResponses(
@@ -39,7 +38,7 @@ public interface PessoaControllerDoc {
             }
     )
     @GetMapping("/byname")
-    ResponseEntity<List<PessoaOutputDTO>> listByName(@NotBlank @RequestParam("nome") String nome);
+    List<PessoaOutputDTO> listByName(@NotBlank @RequestParam("nome") String nome);
 
     @Operation(summary = "Criar uma pessoa.", description = "Cadastra uma pessoa ao banco de dados.")
     @ApiResponses(
@@ -51,7 +50,7 @@ public interface PessoaControllerDoc {
             }
     )
     @PostMapping
-    ResponseEntity<PessoaOutputDTO> create(@Valid @RequestBody PessoaInputDTO pessoa) throws Exception;
+    PessoaOutputDTO create(@Valid @RequestBody PessoaInputDTO pessoa) throws Exception;
 
     @Operation(summary = "Atualizar informações de uma pessoa.", description = "Altera campos de informações de uma pessoa.")
     @ApiResponses(
@@ -63,7 +62,7 @@ public interface PessoaControllerDoc {
             }
     )
     @PutMapping("/{idPessoa}")
-    ResponseEntity<PessoaOutputDTO> update(@Positive @PathVariable("idPessoa") Integer id,
+    PessoaOutputDTO update(@Positive @PathVariable("idPessoa") Integer id,
                            @Valid @RequestBody PessoaInputDTO pessoaAtualizar) throws RegraDeNegocioException, MessagingException;
 
     @Operation(summary = "Deletar uma pessoa.", description = "Deleta uma pessoa do banco de dados.")
@@ -88,7 +87,7 @@ public interface PessoaControllerDoc {
             }
     )
     @GetMapping("/{idPessoa}")
-    ResponseEntity<PessoaOutputDTO> findById(Integer id) throws RegraDeNegocioException;
+    PessoaOutputDTO findById(Integer id) throws RegraDeNegocioException;
 
     @Operation(summary = "Verificar ambiente do servidor.", description = "Informa em qual ambiente o servidor está setado.")
     @ApiResponses(

@@ -26,6 +26,8 @@ public class PessoaController implements PessoaControllerDoc {
 
     private final PropertieReader propertieReader;
 
+    private DadosPessoaisController dadosPessoaisController;
+
     @Autowired
     public PessoaController(PessoaService pessoaService, PropertieReader propertieReader) {
         this.pessoaService = pessoaService;
