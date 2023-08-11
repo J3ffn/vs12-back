@@ -39,7 +39,7 @@ public class EnderecoService {
 
         Pessoa pessoaPorId = objectMapper.convertValue(pessoaService.findById(idPessoa), Pessoa.class);
 
-        checarEnum(enderecoNovo.getTipo());
+        checarEnum(enderecoNovo.getTipoEndereco());
 
         Endereco endereco = objectMapper.convertValue(enderecoNovo, Endereco.class);
 
@@ -49,7 +49,7 @@ public class EnderecoService {
     }
 
     public EnderecoOutputDTO update(Integer idEndereco, EnderecoInputDTO enderecoModificado) throws RegraDeNegocioException, EnumException {
-        this.checarEnum(enderecoModificado.getTipo());
+        this.checarEnum(enderecoModificado.getTipoEndereco());
 
         Endereco enderecoResgatado = enderecoRepository.findById(idEndereco).stream().findFirst().orElseThrow(() -> new RegraDeNegocioException("Não encontrado!"));
 
@@ -61,7 +61,7 @@ public class EnderecoService {
         enderecoResgatado.setLogradouro(enderecoModificado.getLogradouro());
         enderecoResgatado.setNumero(enderecoModificado.getNumero());
         enderecoResgatado.setPais(enderecoModificado.getPais());
-        enderecoResgatado.setTipo(TipoEndereco.valueOf(enderecoModificado.getTipo()));
+        enderecoResgatado.setTipoEndereco(TipoEndereco.valueOf(enderecoModificado.getTipoEndereco()));
 
         enderecoRepository.save(enderecoResgatado);
 

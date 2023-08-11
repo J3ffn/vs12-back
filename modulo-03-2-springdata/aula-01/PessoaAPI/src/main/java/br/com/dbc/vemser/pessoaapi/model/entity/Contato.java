@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -19,7 +20,7 @@ public class Contato {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CONTATO")
-    @SequenceGenerator(name = "SEQ_CONTATO", sequenceName = "seq_contato1", allocationSize = 1)
+    @SequenceGenerator(name = "SEQ_CONTATO", sequenceName = "seq_contato", allocationSize = 1)
     @Column(name = "id_contato")
     private Integer idContato;
 
@@ -31,18 +32,21 @@ public class Contato {
     @Column(name = "tipo_Contato")
     @NotNull
     @NotBlank
+    @Enumerated
     @Schema(description = "Tipo do contato", example = "RESIDENCIAL", required = true, enumAsRef = true)
     private TipoContato tipoContato;
 
     @Column(name = "numero")
     @NotNull
     @Positive
+    @Length(min = 11, max = 11)
     @Schema(description = "Número de contato", example = "83993256846", required = true)
     private String numero;
 
     @Column(name = "descricao")
     @NotNull
     @NotBlank
+    @Length(min = 2, max = 40)
     @Schema(description = "Descrição de contato", example = "Número do mercado", required = true)
     private String descricao;
 

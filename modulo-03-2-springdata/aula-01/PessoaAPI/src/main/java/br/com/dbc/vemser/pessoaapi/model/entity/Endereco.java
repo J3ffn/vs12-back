@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -29,12 +30,14 @@ public class Endereco {
 
     @NotNull
     @Column(name = "TipoEndereco")
+    @Enumerated
     @Schema(description = "Tipo do contato", example = "COMERCIAL", required = true, enumAsRef = true)
-    private TipoEndereco tipo;
+    private TipoEndereco tipoEndereco;
 
     @NotBlank
     @NotNull
     @Column(name = "Logradouro")
+    @Length(min = 2, max = 40)
     @Schema(description = "Logradouro do endereço", example = "Rua amaral batista", required = true)
     private String logradouro;
 
@@ -47,26 +50,31 @@ public class Endereco {
     @NotBlank
     @NotNull
     @Column(name = "complemento")
+    @Length(min = 2, max = 40)
     @Schema(description = "Complemento sobre a casa", example = "Apartamento", required = true)
     private String complemento;
 
     @NotNull
     @Column(name = "cep")
+    @Length(min = 8, max = 9)
     @Schema(description = "CEP da rua", example = "58970000", required = true)
     private String cep;
 
     @NotNull
     @Column(name = "cidade")
+    @Length(min = 1, max = 20)
     @Schema(description = "Cidade do endereço", example = "João Pessoa", required = true)
     private String cidade;
 
     @NotNull
     @Column(name = "esatado")
+    @Length(min = 1, max = 20)
     @Schema(description = "Estado do endereço", example = "Paraíba", required = true)
     private String estado;
 
     @NotNull
     @Column(name = "pais")
+    @Length(min = 1, max = 20)
     @Schema(description = "País do endereço", example = "RESIDENCIAL", required = true)
     private String pais;
 

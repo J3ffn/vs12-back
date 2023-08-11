@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Pessoa {
 
     @NotBlank
     @NotNull
+    @Length(min = 2, max = 60)
     @Schema(description = "Nome da pessoa", example = "Bianca", required = true)
     private String nome;
 
@@ -38,11 +40,13 @@ public class Pessoa {
 
     @CPF
     @NotNull
+    @Length(min = 11, max = 11)
     @Schema(description = "CPF da pessoa", example = "12312312312", required = true)
     private String cpf;
 
     @Email
     @NotNull
+    @Length(min = 0, max = 30)
     @Schema(description = "Email da pessoa", example = "nome@gmail.com", required = true)
     private String email;
 
