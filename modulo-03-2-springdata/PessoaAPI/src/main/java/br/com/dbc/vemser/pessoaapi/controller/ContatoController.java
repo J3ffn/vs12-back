@@ -1,6 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
-import br.com.dbc.vemser.pessoaapi.controller.doc.ContatoControllerDoc;
+import br.com.dbc.vemser.pessoaapi.documentation.ContatoControllerDoc;
 import br.com.dbc.vemser.pessoaapi.exception.EnumException;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.ContatoInputDTO;
@@ -33,7 +33,7 @@ public class ContatoController implements ContatoControllerDoc {
     }
 
     @GetMapping("/pessoa/{idPessoa}")
-    public List<ContatoOutputDTO> contatosByIdPessoa(@Positive @PathVariable("idPessoa") Integer idPessoa) {
+    public List<ContatoOutputDTO> contatosByIdPessoa(@Positive @PathVariable("idPessoa") Long idPessoa) {
         return contatoService.getContatosByIdUsuario(idPessoa);
     }
 
@@ -43,13 +43,13 @@ public class ContatoController implements ContatoControllerDoc {
     }
 
     @PutMapping("/{idContato}")
-    public ResponseEntity<ContatoOutputDTO> update(@Positive @PathVariable("idContato") Integer id,
+    public ResponseEntity<ContatoOutputDTO> update(@Positive @PathVariable("idContato") Long id,
                                                    @Valid @RequestBody ContatoInputDTO contatoAtualizar) throws RegraDeNegocioException, EnumException {
         return ResponseEntity.ok().body(contatoService.update(id, contatoAtualizar));
     }
 
     @DeleteMapping("/{idContato}")
-    public ResponseEntity<Void> delete(@Positive @PathVariable("idContato") Integer id) throws RegraDeNegocioException {
+    public ResponseEntity<Void> delete(@Positive @PathVariable("idContato") Long id) throws RegraDeNegocioException {
         contatoService.delete(id);
         return ResponseEntity.ok().build();
     }

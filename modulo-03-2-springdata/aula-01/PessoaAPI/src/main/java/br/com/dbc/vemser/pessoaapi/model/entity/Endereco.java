@@ -21,12 +21,12 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ENDERECO_SEQ")
     @SequenceGenerator(name = "ENDERECO_SEQ", sequenceName = "seq_endereco1", allocationSize = 1)
-    private Integer idEndereco;
+    private Long idEndereco;
 
     @NotNull
     @Column(name = "id_pessoa")
     @Schema(description = "Id de pessoa", example = "RESIDENCIAL", required = true)
-    private Integer idPessoa;
+    private Long idPessoa;
 
     @NotNull
     @Column(name = "TipoEndereco")

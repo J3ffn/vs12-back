@@ -18,7 +18,7 @@ public class ContatoInputDTO {
 
     @NotNull
     @Schema(description = "Id da pessoa", example = "2", required = true)
-    private Integer idPessoa;
+    private Long idPessoa;
 
     @NotNull
     @NotBlank

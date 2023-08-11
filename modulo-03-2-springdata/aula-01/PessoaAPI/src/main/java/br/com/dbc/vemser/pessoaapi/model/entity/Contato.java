@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -22,12 +23,12 @@ public class Contato {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CONTATO")
     @SequenceGenerator(name = "SEQ_CONTATO", sequenceName = "seq_contato", allocationSize = 1)
     @Column(name = "id_contato")
-    private Integer idContato;
+    private Long idContato;
 
     @Column(name = "id_pessoa")
     @NotNull
     @Schema(description = "Id da pessoa", example = "2", required = true)
-    private Integer idPessoa;
+    private Number idPessoa;
 
     @Column(name = "tipo_Contato")
     @NotNull

@@ -39,24 +39,25 @@ public class PessoaService {
                 .toList();
     }
 
-    public PessoaOutputDTO update(Integer id, PessoaInputDTO pessoaAtualizar) throws RegraDeNegocioException, MessagingException {
+    public PessoaOutputDTO update(Long id, PessoaInputDTO pessoaAtualizar) throws RegraDeNegocioException, MessagingException {
         Pessoa pessoaRecuperada = getPessoa(id);
 
         pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
         pessoaRecuperada.setNome(pessoaAtualizar.getNome());
         pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
+        pessoaRecuperada.setEmail(pessoaAtualizar.getEmail());
 
         emailService.sendTemplateMailUpdateAccount(pessoaRecuperada);
 
         pessoaRepository.save(pessoaRecuperada);
-        
+
         return objectMapper.convertValue(pessoaRecuperada, PessoaOutputDTO.class);
     }
 
-    public void delete(Integer id) throws RegraDeNegocioException, MessagingException {
+    public void delete(Long id) throws RegraDeNegocioException, MessagingException {
         Pessoa pessoaRecuperada = getPessoa(id);
         pessoaRepository.delete(pessoaRecuperada);
-        emailService.sendTemplateMailDeleteAccount(pessoaRecuperada);
+//        emailService.sendTemplateMailDeleteAccount(pessoaRecuperada);
     }
 
     public List<PessoaOutputDTO> listByName(String nome) {
@@ -66,14 +67,14 @@ public class PessoaService {
                 .toList();
     }
 
-    private Pessoa getPessoa(Integer id) throws RegraDeNegocioException {
+    private Pessoa getPessoa(Long id) throws RegraDeNegocioException {
         return pessoaRepository.findById(id)
                 .stream()
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException("Não encontrou!"));
     }
 
-    public PessoaOutputDTO findById(Integer idBuscado) throws RegraDeNegocioException {
+    public PessoaOutputDTO findById(Long idBuscado) throws RegraDeNegocioException {
         return objectMapper.convertValue(getPessoa(idBuscado), PessoaOutputDTO.class);
     }
 }

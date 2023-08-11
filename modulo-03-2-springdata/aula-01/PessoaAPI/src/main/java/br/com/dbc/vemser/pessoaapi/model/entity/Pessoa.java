@@ -25,7 +25,7 @@ public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PESSOA")
     @SequenceGenerator(name = "PESSOA_SEQ", sequenceName = "seq_pessoa1", allocationSize = 1)
-    private Integer idPessoa;
+    private Long idPessoa;
 
     @NotBlank
     @NotNull

@@ -44,7 +44,7 @@ public class ContatoService {
                 .toList();
     }
 
-    public ContatoOutputDTO update(Integer id, ContatoInputDTO contatoAtualizar) throws RegraDeNegocioException, EnumException {
+    public ContatoOutputDTO update(Long id, ContatoInputDTO contatoAtualizar) throws RegraDeNegocioException, EnumException {
 
         TipoContato tipoContato = checarEnum(contatoAtualizar.getTipoContato());
 
@@ -61,18 +61,18 @@ public class ContatoService {
         return objectMapper.convertValue(contatoRecuperado, ContatoOutputDTO.class);
     }
 
-    public void delete(Integer id) throws RegraDeNegocioException {
+    public void delete(Long id) throws RegraDeNegocioException {
         Contato contatoRecuperada = getContato(id);
         contatoRepository.delete(contatoRecuperada);
     }
 
-    public List<ContatoOutputDTO> getContatosByIdUsuario(Integer idPessoa) {
+    public List<ContatoOutputDTO> getContatosByIdUsuario(Long idPessoa) {
         return list().stream().filter(contato -> contato.getIdPessoa().equals(idPessoa))
                 .map(contato -> objectMapper.convertValue(contato, ContatoOutputDTO.class))
                 .toList();
     }
 
-    private Contato getContato(Integer id) throws RegraDeNegocioException {
+    private Contato getContato(Long id) throws RegraDeNegocioException {
         return contatoRepository.findById(id)
                 .stream()
                 .findFirst()

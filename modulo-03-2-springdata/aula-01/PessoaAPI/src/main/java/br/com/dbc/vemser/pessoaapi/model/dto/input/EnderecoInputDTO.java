@@ -21,7 +21,7 @@ public class EnderecoInputDTO {
     @Schema(description = "Id de pessoa", example = "RESIDENCIAL", required = true)
     @NotNull
     @Column(name = "id_pessoa")
-    private Integer idPessoa;
+    private Long idPessoa;
 
     @NotNull
     @Schema(description = "Tipo do contato", example = "COMERCIAL", required = true, enumAsRef = true)

@@ -17,7 +17,7 @@ public class EnderecoOutputDTO extends EnderecoInputDTO {
 
     @Nullable
     @Schema(description = "ID da pessoa", example = "2", required = true)
-    private Integer idEndereco;
+    private Long idEndereco;
 
 
 }

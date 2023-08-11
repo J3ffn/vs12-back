@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EnderecoRepository extends JpaRepository<Endereco, Integer> {
+public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
 
 //    ContatoR updateBy(EnderecoR endereco);
 
-    List<Endereco> findEnderecosByIdPessoa(Integer idPessoa);
+    List<Endereco> findEnderecosByIdPessoa(Long idPessoa);
 
 }

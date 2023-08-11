@@ -1,6 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
-import br.com.dbc.vemser.pessoaapi.controller.doc.PessoaControllerDoc;
+import br.com.dbc.vemser.pessoaapi.documentation.PessoaControllerDoc;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.PessoaInputDTO;
 import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputDTO;
@@ -45,18 +45,18 @@ public class PessoaController implements PessoaControllerDoc {
     }
 
     @PutMapping("/{idPessoa}")
-    public PessoaOutputDTO update(@Positive @PathVariable("idPessoa") Integer id,
+    public PessoaOutputDTO update(@Positive @PathVariable("idPessoa") Long id,
                                   @Valid @RequestBody PessoaInputDTO pessoaAtualizar) throws RegraDeNegocioException, MessagingException {
         return pessoaService.update(id, pessoaAtualizar);
     }
 
     @DeleteMapping("/{idPessoa}")
-    public void delete(@Positive @PathVariable("idPessoa") Integer id) throws RegraDeNegocioException, MessagingException {
+    public void delete(@Positive @PathVariable("idPessoa") Long id) throws RegraDeNegocioException, MessagingException {
         pessoaService.delete(id);
     }
 
     @GetMapping("/{idPessoa}")
-    public PessoaOutputDTO findById(Integer id) throws RegraDeNegocioException {
+    public PessoaOutputDTO findById(Long id) throws RegraDeNegocioException {
         return pessoaService.findById(id);
     }
 

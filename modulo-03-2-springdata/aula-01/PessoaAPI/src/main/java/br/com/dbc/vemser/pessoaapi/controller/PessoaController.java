@@ -45,18 +45,18 @@ public class PessoaController implements PessoaControllerDoc {
     }
 
     @PutMapping("/{idPessoa}")
-    public PessoaOutputDTO update(@Positive @PathVariable("idPessoa") Integer id,
+    public PessoaOutputDTO update(@Positive @PathVariable("idPessoa") Long id,
                                   @Valid @RequestBody PessoaInputDTO pessoaAtualizar) throws RegraDeNegocioException, MessagingException {
         return pessoaService.update(id, pessoaAtualizar);
     }
 
     @DeleteMapping("/{idPessoa}")
-    public void delete(@Positive @PathVariable("idPessoa") Integer id) throws RegraDeNegocioException, MessagingException {
+    public void delete(@Positive @PathVariable("idPessoa") Long id) throws RegraDeNegocioException, MessagingException {
         pessoaService.delete(id);
     }
 
     @GetMapping("/{idPessoa}")
-    public PessoaOutputDTO findById(Integer id) throws RegraDeNegocioException {
+    public PessoaOutputDTO findById(Long id) throws RegraDeNegocioException {
         return pessoaService.findById(id);
     }
 

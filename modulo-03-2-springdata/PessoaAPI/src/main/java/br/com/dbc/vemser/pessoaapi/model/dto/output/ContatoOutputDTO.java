@@ -18,7 +18,7 @@ public class ContatoOutputDTO extends ContatoInputDTO {
 
     @NotNull
     @Schema(description = "Id da pessoa", example = "2", required = true)
-    private Integer idContato;
+    private Long idContato;
 
 
 }

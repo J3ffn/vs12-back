@@ -32,31 +32,31 @@ public class EnderecoController implements EnderecoControllerDoc {
     }
 
     @GetMapping("/{idEndereco}")
-    public ResponseEntity<EnderecoOutputDTO> getEnderecoById(@Positive @PathVariable Integer idEndereco) throws Exception {
+    public ResponseEntity<EnderecoOutputDTO> getEnderecoById(@Positive @PathVariable Long idEndereco) throws Exception {
         EnderecoOutputDTO enderecoById = enderecoService.getEnderecoById(idEndereco);
         return ResponseEntity.ok().body(enderecoById);
     }
 
     @GetMapping("/{idPessoa}/pessoa")
-    public ResponseEntity<List<EnderecoOutputDTO>> getEnderecosByIdPessoa(@Positive @PathVariable Integer idPessoa) {
+    public ResponseEntity<List<EnderecoOutputDTO>> getEnderecosByIdPessoa(@Positive @PathVariable Long idPessoa) {
         List<EnderecoOutputDTO> enderecosByIdUsuario = enderecoService.getEnderecosByIdPessoa(idPessoa);
         return ResponseEntity.ok().body(enderecosByIdUsuario);
     }
 
     @PostMapping("/{idPessoa}")
-    public ResponseEntity<EnderecoOutputDTO> create(@Positive @PathVariable Integer idPessoa, @Valid @RequestBody EnderecoInputDTO endereco) throws Exception {
+    public ResponseEntity<EnderecoOutputDTO> create(@Positive @PathVariable Long idPessoa, @Valid @RequestBody EnderecoInputDTO endereco) throws Exception {
         EnderecoOutputDTO enderecoCriado = enderecoService.create(idPessoa, endereco);
         return ResponseEntity.ok().body(enderecoCriado);
     }
 
     @PutMapping("/{idEndereco}")
-    public ResponseEntity<EnderecoOutputDTO> update(@Positive @PathVariable Integer idEndereco, @Valid @RequestBody EnderecoInputDTO endereco) throws RegraDeNegocioException, EnumException {
+    public ResponseEntity<EnderecoOutputDTO> update(@Positive @PathVariable Long idEndereco, @Valid @RequestBody EnderecoInputDTO endereco) throws RegraDeNegocioException, EnumException {
         EnderecoOutputDTO enderecoAlterado = enderecoService.update(idEndereco, endereco);
         return ResponseEntity.status(HttpStatus.CREATED).body(enderecoAlterado);
     }
 
     @DeleteMapping("/{idEndereco}")
-    public void delete(@Positive @PathVariable Integer idEndereco) throws Exception {
+    public void delete(@Positive @PathVariable Long idEndereco) throws Exception {
         enderecoService.delete(idEndereco);
     }
 

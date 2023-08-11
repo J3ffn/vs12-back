@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
+public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 
 //    PessoaR updateByidPessoa(Integer idPessoa, PessoaR pessoa);
 
