@@ -66,9 +66,8 @@ public class Pessoa {
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Contato> contatos;
 
-    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_pet", referencedColumnName = "id_pet")
+    @JoinColumn(name = "id_pessoa", referencedColumnName = "id_pet")
     private Pet pet;
 
     public Integer getIdade() {

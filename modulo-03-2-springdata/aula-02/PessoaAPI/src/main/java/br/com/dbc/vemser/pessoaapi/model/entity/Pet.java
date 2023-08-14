@@ -1,6 +1,5 @@
 package br.com.dbc.vemser.pessoaapi.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 

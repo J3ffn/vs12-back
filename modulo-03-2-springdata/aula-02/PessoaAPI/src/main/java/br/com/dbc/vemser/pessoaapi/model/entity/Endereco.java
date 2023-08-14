@@ -1,5 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
@@ -64,7 +65,8 @@ public class Endereco {
     @Length(min = 1, max = 20)
     private String pais;
 
-    @JsonIgnoreProperties("enderecos")
+    @JsonIgnore
+//    @JsonIgnoreProperties("enderecos")
     @ManyToMany(mappedBy = "enderecos")
     private Set<Pessoa> pessoas;
 

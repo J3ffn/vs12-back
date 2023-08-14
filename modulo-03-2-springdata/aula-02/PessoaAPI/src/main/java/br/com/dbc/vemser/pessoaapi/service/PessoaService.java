@@ -84,6 +84,7 @@ public class PessoaService {
         if (idPessoa != null) {
             Pessoa pessoa = this.getPessoa(idPessoa);
             pessoa.setContatos(null);
+            pessoa.setPet(null);
 
             pessoas.add(objectMapper.convertValue(pessoa, PessoaOutputDTO.class));
         } else {
@@ -98,6 +99,7 @@ public class PessoaService {
         if (idPessoa != null) {
             Pessoa pessoa = this.getPessoa(idPessoa);
             pessoa.setEnderecos(null);
+            pessoa.setPet(null);
 
             pessoas.add(objectMapper.convertValue(pessoa, PessoaOutputDTO.class));
         } else {

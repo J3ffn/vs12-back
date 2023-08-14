@@ -2,13 +2,13 @@ package br.com.dbc.vemser.pessoaapi.model.dto.output;
 
 import br.com.dbc.vemser.pessoaapi.model.entity.Contato;
 import br.com.dbc.vemser.pessoaapi.model.entity.Endereco;
+import br.com.dbc.vemser.pessoaapi.model.entity.Pet;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -47,4 +47,6 @@ public class PessoaOutputDTO {
 
     @Schema(description = "Contatos da pessoa salva no banco", example = "{}")
     private Set<Contato> contatos;
+
+    private Pet pet;
 }
