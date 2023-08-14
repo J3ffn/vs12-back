@@ -1,5 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
@@ -20,7 +22,7 @@ public class Pet {
     @Column(name = "id_pet")
     private Long idPet;
 
-//    @JsonIgnore
+    @JsonIgnore
     @NotNull
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pessoa", referencedColumnName = "id_pessoa")

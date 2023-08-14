@@ -8,16 +8,14 @@ import br.com.dbc.vemser.pessoaapi.model.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.model.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.model.entity.TipoEndereco;
 import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
+import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 
@@ -25,7 +23,7 @@ import java.util.stream.Collectors;
 public class EnderecoService {
 
     private final EnderecoRepository enderecoRepository;
-    private final PessoaService pessoaService;
+    private final PessoaRepository pessoaRepository;
     private final ObjectMapper objectMapper;
 
 
@@ -37,13 +35,15 @@ public class EnderecoService {
 
         checarEnum(enderecoNovo.getTipoEndereco());
 
-        Pessoa pessoaPorId = objectMapper.convertValue(pessoaService.findById(idPessoa), Pessoa.class);
+        Pessoa pessoaPorId = pessoaRepository.getById(idPessoa);
 
         Endereco endereco = objectMapper.convertValue(enderecoNovo, Endereco.class);
 
-        endereco.setPessoas(new HashSet<>());
-        endereco.getPessoas().add(pessoaPorId);
+//        pessoaPorId.setEnderecos(new HashSet<>());
+        pessoaPorId.getEnderecos().add(endereco);
 
+//        endereco.setPessoas(new HashSet<>());
+        endereco.getPessoas().add(pessoaPorId);
 
         return objectMapper.convertValue(enderecoRepository.save(endereco), EnderecoOutputDTO.class);
     }

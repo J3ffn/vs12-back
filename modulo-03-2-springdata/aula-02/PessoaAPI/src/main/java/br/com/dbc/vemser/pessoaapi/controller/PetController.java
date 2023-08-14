@@ -27,7 +27,8 @@ public class PetController {
     }
 
     @PostMapping("/pessoa/{idPessoa}")
-    public PetOutputDTO create(@Positive @PathVariable Long idPessoa, PetInputDTO petCreate) {
+    public PetOutputDTO create(@Positive @PathVariable(required = false, name = "idPessoa") Long idPessoa,
+                               @Valid @RequestBody PetInputDTO petCreate) throws RegraDeNegocioException {
         return petService.create(idPessoa, petCreate);
     }
 

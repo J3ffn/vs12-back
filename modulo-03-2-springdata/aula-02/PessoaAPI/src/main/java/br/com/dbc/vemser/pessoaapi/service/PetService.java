@@ -5,6 +5,7 @@ import br.com.dbc.vemser.pessoaapi.model.dto.input.PetInputDTO;
 import br.com.dbc.vemser.pessoaapi.model.dto.output.PetOutputDTO;
 import br.com.dbc.vemser.pessoaapi.model.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.model.entity.Pet;
+import br.com.dbc.vemser.pessoaapi.model.entity.TipoPet;
 import br.com.dbc.vemser.pessoaapi.repository.PetRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +24,20 @@ public class PetService {
 
     private final ObjectMapper objectMapper;
 
-    public PetOutputDTO create(Long idPessoa, PetInputDTO petCreate) {
+    public PetOutputDTO create(Long idPessoa, PetInputDTO petCreate) throws RegraDeNegocioException {
         petCreate.setIdPessoa(idPessoa);
 
         Pet petNovo = objectMapper.convertValue(petCreate, Pet.class);
+        Pessoa pessoa = objectMapper.convertValue(pessoaService.findById(idPessoa), Pessoa.class);
+
+        petNovo.setPessoa(pessoa);
+
         petRepository.save(petNovo);
-        return objectMapper.convertValue(petNovo, PetOutputDTO.class);
+
+        PetOutputDTO petOutputDTO = objectMapper.convertValue(petNovo, PetOutputDTO.class);
+
+        petOutputDTO.setPessoa(idPessoa);
+        return petOutputDTO;
     }
 
     public PetOutputDTO update(Long idPet, PetInputDTO petAtualizacao) throws RegraDeNegocioException {
@@ -38,7 +47,7 @@ public class PetService {
 
         Pet petModificado = petRepository.getById(idPet);
         petModificado.setNome(petAtualizacao.getNome());
-        petModificado.setTipo(petAtualizacao.getTipo());
+        petModificado.setTipo(TipoPet.valueOf(petAtualizacao.getTipo()));
 
         if (petAtualizacao.getIdPessoa() != null) {
             Pessoa pessoa = objectMapper.convertValue(pessoaService.findById(petAtualizacao.getIdPessoa()), Pessoa.class);

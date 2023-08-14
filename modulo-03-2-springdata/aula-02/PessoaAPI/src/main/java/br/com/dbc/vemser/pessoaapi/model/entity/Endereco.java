@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -66,9 +67,8 @@ public class Endereco {
     private String pais;
 
     @JsonIgnore
-//    @JsonIgnoreProperties("enderecos")
     @ManyToMany(mappedBy = "enderecos")
-    private Set<Pessoa> pessoas;
+    private Set<Pessoa> pessoas = new HashSet<>();
 
 
 }
