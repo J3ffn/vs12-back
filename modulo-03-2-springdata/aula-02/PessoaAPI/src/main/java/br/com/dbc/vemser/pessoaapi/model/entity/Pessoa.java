@@ -1,9 +1,9 @@
 package br.com.dbc.vemser.pessoaapi.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -14,8 +14,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
@@ -24,7 +26,8 @@ public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PESSOA")
-    @SequenceGenerator(name = "PESSOA_SEQ", sequenceName = "seq_pessoa1", allocationSize = 1)
+    @SequenceGenerator(name = "PESSOA_SEQ", sequenceName = "seq_pessoa", allocationSize = 1)
+    @Column(name = "id_pessoa")
     private Long idPessoa;
 
     @NotBlank
@@ -36,6 +39,7 @@ public class Pessoa {
     @PastOrPresent
     @NotNull
     @Schema(description = "Data de nascimento da pessoa", example = "14/08/2001", required = true)
+    @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
     @CPF
@@ -46,9 +50,26 @@ public class Pessoa {
 
     @Email
     @NotNull
-    @Length(min = 0, max = 30)
+    @Length(min = 2, max = 30)
     @Schema(description = "Email da pessoa", example = "nome@gmail.com", required = true)
+    @Column(name = "email", length = 60, nullable = false)
     private String email;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "Pessoa_X_Pessoa_Endereco",
+            joinColumns = @JoinColumn(name = "id_pessoa"),
+            inverseJoinColumns = @JoinColumn(name = "id_endereco")
+    )
+    private Set<Endereco> enderecos;
+
+    @JsonIgnoreProperties("pessoas")
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Contato> contatos;
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_pet", referencedColumnName = "id_pet")
+    private Pet pet;
 
     public Integer getIdade() {
         LocalDate dataAtual = LocalDate.now();
@@ -56,13 +77,5 @@ public class Pessoa {
         return periodo.getYears();
     }
 
-    @Override
-    public String toString() {
-        return "Pessoa{" +
-                "idPessoa=" + idPessoa +
-                ", nome='" + nome + '\'' +
-                ", dataNascimento=" + dataNascimento +
-                ", cpf='" + cpf + '\'' +
-                '}';
-    }
+
 }
