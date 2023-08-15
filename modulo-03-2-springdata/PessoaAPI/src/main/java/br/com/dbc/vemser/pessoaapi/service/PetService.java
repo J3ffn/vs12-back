@@ -25,7 +25,6 @@ public class PetService {
     private final ObjectMapper objectMapper;
 
     public PetOutputDTO create(Long idPessoa, PetInputDTO petCreate) throws RegraDeNegocioException {
-        petCreate.setIdPessoa(idPessoa);
 
         Pet petNovo = objectMapper.convertValue(petCreate, Pet.class);
         Pessoa pessoa = objectMapper.convertValue(pessoaService.findById(idPessoa), Pessoa.class);
@@ -49,11 +48,6 @@ public class PetService {
         Pet petModificado = petRepository.getById(idPet);
         petModificado.setNome(petAtualizacao.getNome());
         petModificado.setTipo(TipoPet.valueOf(petAtualizacao.getTipo()));
-
-        if (petAtualizacao.getIdPessoa() != null) {
-            Pessoa pessoa = objectMapper.convertValue(pessoaService.findById(petAtualizacao.getIdPessoa()), Pessoa.class);
-            petModificado.setPessoa(pessoa);
-        }
 
         petRepository.save(petModificado);
         return objectMapper.convertValue(petModificado, PetOutputDTO.class);

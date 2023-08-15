@@ -11,16 +11,16 @@ import lombok.NoArgsConstructor;
 
 public class EnderecoOutputRelatorioDTO {
 
-    @Schema(description = "CEP da rua", example = "58970000", required = true)
+    @Schema(description = "CEP da rua", example = "58970000")
     private String cep;
 
-    @Schema(description = "Cidade do endereço", example = "João Pessoa", required = true)
+    @Schema(description = "Cidade do endereço", example = "João Pessoa")
     private String cidade;
 
-    @Schema(description = "Estado do endereço", example = "Paraíba", required = true)
+    @Schema(description = "Estado do endereço", example = "Paraíba")
     private String estado;
 
-    @Schema(description = "País do endereço", example = "RESIDENCIAL", required = true)
+    @Schema(description = "País do endereço", example = "RESIDENCIAL")
     private String pais;
 
 }

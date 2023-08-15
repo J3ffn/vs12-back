@@ -6,7 +6,7 @@ import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.ContatoInputDTO;
 import br.com.dbc.vemser.pessoaapi.model.dto.output.ContatoOutputDTO;
 import br.com.dbc.vemser.pessoaapi.service.ContatoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -17,15 +17,11 @@ import java.util.List;
 
 @Validated
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/contato")
 public class ContatoController implements ContatoControllerDoc {
 
     private final ContatoService contatoService;
-
-    @Autowired
-    public ContatoController(ContatoService contatoService) {
-        this.contatoService = contatoService;
-    }
 
     @GetMapping
     public ResponseEntity<List<ContatoOutputDTO>> list() {

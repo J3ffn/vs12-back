@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 public class ContatoOutputRelatorioDTO {
 
-    @Schema(description = "Número de contato", example = "83993256846", required = true)
+    @Schema(description = "Número de contato", example = "83993256846")
     private String numero;
 
 }

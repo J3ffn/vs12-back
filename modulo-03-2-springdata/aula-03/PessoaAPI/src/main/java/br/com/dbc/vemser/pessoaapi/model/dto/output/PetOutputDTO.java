@@ -1,8 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.model.dto.output;
 
-import br.com.dbc.vemser.pessoaapi.model.entity.PetSerialize;
 import br.com.dbc.vemser.pessoaapi.model.entity.TipoPet;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,11 +12,15 @@ import lombok.NoArgsConstructor;
 
 public class PetOutputDTO {
 
+    @Schema(description = "Id do pet", example = "5")
     private Long idPet;
 
+    @Schema(description = "Id referente a pessoa", example = "3")
     private Long pessoa;
 
+    @Schema(description = "Nome referente ao pet", example = "Rusk")
     private String nome;
 
+    @Schema(description = "Tipo do pet", example = "CACHORRO")
     private TipoPet tipo;
 }

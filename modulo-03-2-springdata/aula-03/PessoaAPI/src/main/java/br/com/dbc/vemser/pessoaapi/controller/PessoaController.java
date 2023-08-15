@@ -6,6 +6,7 @@ import br.com.dbc.vemser.pessoaapi.model.dto.input.PessoaInputDTO;
 import br.com.dbc.vemser.pessoaapi.model.dto.output.mapeamentoPessoa.*;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import br.com.dbc.vemser.pessoaapi.utils.PropertieReader;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
+@RequiredArgsConstructor
+
 @RestController
 @RequestMapping("/pessoa")
 public class PessoaController implements PessoaControllerDoc {
@@ -24,12 +27,6 @@ public class PessoaController implements PessoaControllerDoc {
     private final PessoaService pessoaService;
 
     private final PropertieReader propertieReader;
-
-    @Autowired
-    public PessoaController(PessoaService pessoaService, PropertieReader propertieReader) {
-        this.pessoaService = pessoaService;
-        this.propertieReader = propertieReader;
-    }
 
     @GetMapping
     public List<PessoaOutputDTO> findAll() {

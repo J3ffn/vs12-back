@@ -39,10 +39,8 @@ public class EnderecoService {
 
         Endereco endereco = objectMapper.convertValue(enderecoNovo, Endereco.class);
 
-//        pessoaPorId.setEnderecos(new HashSet<>());
         pessoaPorId.getEnderecos().add(endereco);
 
-//        endereco.setPessoas(new HashSet<>());
         endereco.getPessoas().add(pessoaPorId);
 
         return objectMapper.convertValue(enderecoRepository.save(endereco), EnderecoOutputDTO.class);

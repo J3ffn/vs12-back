@@ -12,30 +12,30 @@ import lombok.NoArgsConstructor;
 
 public class EnderecoOutputDTO {
 
-    @Schema(description = "ID da pessoa", example = "2", required = true)
+    @Schema(description = "ID da pessoa", example = "2")
     private Long idEndereco;
 
-    @Schema(description = "Tipo do contato", example = "COMERCIAL", required = true, enumAsRef = true)
+    @Schema(description = "Tipo do contato", example = "COMERCIAL")
     private TipoEndereco tipoEndereco;
 
-    @Schema(description = "Logradouro do endereço", example = "Rua amaral batista", required = true)
+    @Schema(description = "Logradouro do endereço", example = "Rua amaral batista")
     private String logradouro;
 
-    @Schema(description = "Número da casa", example = "132", required = true)
+    @Schema(description = "Número da casa", example = "132")
     private Integer numero;
 
-    @Schema(description = "Complemento sobre a casa", example = "Apartamento", required = true)
+    @Schema(description = "Complemento sobre a casa", example = "Apartamento")
     private String complemento;
 
-    @Schema(description = "CEP da rua", example = "58970000", required = true)
+    @Schema(description = "CEP da rua", example = "58970000")
     private String cep;
 
-    @Schema(description = "Cidade do endereço", example = "João Pessoa", required = true)
+    @Schema(description = "Cidade do endereço", example = "João Pessoa")
     private String cidade;
 
-    @Schema(description = "Estado do endereço", example = "Paraíba", required = true)
+    @Schema(description = "Estado do endereço", example = "Paraíba")
     private String estado;
 
-    @Schema(description = "País do endereço", example = "RESIDENCIAL", required = true)
+    @Schema(description = "País do endereço", example = "RESIDENCIAL")
     private String pais;
 }

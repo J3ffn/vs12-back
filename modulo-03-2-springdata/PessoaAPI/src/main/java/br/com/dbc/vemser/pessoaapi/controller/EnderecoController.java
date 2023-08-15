@@ -7,6 +7,8 @@ import br.com.dbc.vemser.pessoaapi.model.dto.input.EnderecoInputDTO;
 import br.com.dbc.vemser.pessoaapi.model.dto.output.EnderecoOutputDTO;
 import br.com.dbc.vemser.pessoaapi.model.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.service.EnderecoService;
+import com.sun.istack.Interned;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,16 +18,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
+@RequiredArgsConstructor
+
 @RestController
 @RequestMapping("/endereco")
 public class EnderecoController implements EnderecoControllerDoc {
 
     private final EnderecoService enderecoService;
-
-    @Autowired
-    public EnderecoController(EnderecoService enderecoService) {
-        this.enderecoService = enderecoService;
-    }
 
     @GetMapping
     public ResponseEntity<List<EnderecoOutputDTO>> list() {
