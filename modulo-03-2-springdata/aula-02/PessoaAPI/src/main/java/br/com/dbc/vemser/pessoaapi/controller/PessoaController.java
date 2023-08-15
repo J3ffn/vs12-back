@@ -3,13 +3,9 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.documentation.PessoaControllerDoc;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.PessoaInputDTO;
-import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputContatoDTO;
-import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputDTO;
-import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputEnderecosDTO;
-import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputPetsDTO;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.mapeamentoPessoa.*;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import br.com.dbc.vemser.pessoaapi.utils.PropertieReader;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -84,6 +80,16 @@ public class PessoaController implements PessoaControllerDoc {
     @GetMapping("/listar-com-pets")
     public ResponseEntity<List<PessoaOutputPetsDTO>> findPessoasWithPets(@Positive @RequestParam(required = false) Long idPet) throws RegraDeNegocioException {
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.findPessoasWithPets(idPet));
+    }
+
+    @GetMapping("/pessoa-completo")
+    public ResponseEntity<List<PessoaOutputDTO>> findPessoasByIdOrAll(@Positive @RequestParam(required = false) Long idPessoa) throws RegraDeNegocioException {
+        return ResponseEntity.status(HttpStatus.OK).body(pessoaService.findPessoaByIdOrAll(idPessoa));
+    }
+
+    @GetMapping("/relatorio")
+    public ResponseEntity<List<PessoaOutputRelatorioDTO>> findPessoasByIdOrAll()  {
+        return ResponseEntity.status(HttpStatus.OK).body(pessoaService.relatorio());
     }
 
 }

@@ -27,13 +27,16 @@ public class ContatoService {
     private final ObjectMapper objectMapper;
 
     public ContatoOutputDTO create(Long idPessoa, ContatoInputDTO contato) throws EnumException, RegraDeNegocioException {
-        contato.setIdPessoa(idPessoa);
 
         Contato contatoConvertido = objectMapper.convertValue(contato, Contato.class);
+        contatoConvertido.setPessoa(objectMapper.convertValue(pessoaService.findById(idPessoa), Pessoa.class));
 
         contatoConvertido = contatoRepository.save(contatoConvertido);
 
-        return objectMapper.convertValue(contatoConvertido, ContatoOutputDTO.class);
+        ContatoOutputDTO contatoOutputDTO = objectMapper.convertValue(contatoConvertido, ContatoOutputDTO.class);
+        contatoOutputDTO.setIdPessoa(contatoConvertido.getPessoa().getIdPessoa());
+
+        return contatoOutputDTO;
     }
 
     public List<ContatoOutputDTO> findAll() {
@@ -43,15 +46,13 @@ public class ContatoService {
                 .toList();
     }
 
-    public ContatoOutputDTO update(Long id, ContatoInputDTO contatoAtualizar) throws RegraDeNegocioException, EnumException {
+    public ContatoOutputDTO update(Long idContato, ContatoInputDTO contatoAtualizar) throws RegraDeNegocioException, EnumException {
 
         TipoContato tipoContato = this.checarEnum(contatoAtualizar.getTipoContato());
-        Pessoa pessoaBuscada = objectMapper.convertValue(pessoaService.findById(contatoAtualizar.getIdPessoa()), Pessoa.class);
 
-        Contato contatoRecuperado = getContato(id);
+        Contato contatoRecuperado = this.getContato(idContato);
 
-        contatoRecuperado.setIdContato(id);
-        contatoRecuperado.setPessoa(pessoaBuscada);
+        contatoRecuperado.setIdContato(idContato);
         contatoRecuperado.setDescricao(contatoAtualizar.getDescricao());
         contatoRecuperado.setTipoContato(tipoContato);
         contatoRecuperado.setNumero(contatoAtualizar.getNumero());

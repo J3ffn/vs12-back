@@ -18,4 +18,14 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
     List<Pessoa> findByDataNascimentoBetween(LocalDate dataInicio, LocalDate dataTermino);
 
     List<Pessoa> findByNome(String nome);
+
+//    @Query(" select new br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputRelatorioDTO.java(" +
+//            "p.idPessoa," +
+//            "p.contatos" +
+//            ")" +
+//            "from PESSOA p " +
+//            "INNER JOIN CONTATO c " +
+//            "where p")
+//    List<PessoaOutputRelatorioDTO> findAllWithPessoa();
+
 }

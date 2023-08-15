@@ -2,7 +2,7 @@ package br.com.dbc.vemser.pessoaapi.documentation;
 
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.PessoaInputDTO;
-import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputDTO;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.mapeamentoPessoa.PessoaOutputDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

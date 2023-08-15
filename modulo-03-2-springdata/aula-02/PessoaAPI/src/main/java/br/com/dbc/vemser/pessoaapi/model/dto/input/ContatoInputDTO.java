@@ -1,12 +1,10 @@
 package br.com.dbc.vemser.pessoaapi.model.dto.input;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.*;
 
@@ -15,10 +13,6 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 
 public class ContatoInputDTO {
-
-    @Nullable
-    @Schema(description = "Id da pessoa", example = "2", required = true)
-    private Long idPessoa;
 
     @NotNull
     @NotBlank

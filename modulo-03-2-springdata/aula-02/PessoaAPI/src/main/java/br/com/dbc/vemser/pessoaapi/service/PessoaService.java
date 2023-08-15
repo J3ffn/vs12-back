@@ -2,20 +2,15 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.PessoaInputDTO;
-import br.com.dbc.vemser.pessoaapi.model.dto.output.*;
-import br.com.dbc.vemser.pessoaapi.model.entity.Endereco;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.mapeamentoPessoa.*;
 import br.com.dbc.vemser.pessoaapi.model.entity.Pessoa;
-import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
-import br.com.dbc.vemser.pessoaapi.utils.TapedQuery;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 
@@ -42,6 +37,10 @@ public class PessoaService {
                 .stream()
                 .map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputDTO.class))
                 .toList();
+    }
+
+    public List<PessoaOutputDTO> findPessoaByIdOrAll(Long idPessoa) {
+        return pessoaRepository.findAllComOptional(idPessoa).stream().map(this::PessoaToDTO).toList();
     }
 
     public PessoaOutputDTO update(Long id, PessoaInputDTO pessoaAtualizar) throws RegraDeNegocioException, MessagingException {
@@ -97,7 +96,10 @@ public class PessoaService {
                 .stream()
                 .map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputPetsDTO.class))
                 .toList();
+    }
 
+    public List<PessoaOutputRelatorioDTO> relatorio() {
+        return pessoaRepository.findAll().stream().map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputRelatorioDTO.class)).toList();
     }
 
     private Pessoa getPessoa(Long id) throws RegraDeNegocioException {
