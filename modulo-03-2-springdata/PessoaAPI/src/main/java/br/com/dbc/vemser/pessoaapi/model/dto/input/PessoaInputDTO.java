@@ -27,18 +27,18 @@ public class PessoaInputDTO {
 
     @PastOrPresent
     @NotNull
-    @Schema(description = "Data de nascimento da pessoa", example = "14/08/2001", required = true)
+    @Schema(description = "Data de nascimento da pessoa", example = "2001-08-19", required = true)
     private LocalDate dataNascimento;
 
     @CPF
     @NotNull
-    @Schema(description = "CPF da pessoa", example = "12312312312", required = true)
+    @Schema(description = "CPF da pessoa", example = "12475525002", required = true)
     @Length(min = 11, max = 11)
     private String cpf;
 
     @Email
     @NotNull
-    @Schema(description = "Email da pessoa", example = "nome@gmail.com", required = true)
+    @Schema(description = "Email da pessoa", example = "bianca@gmail.com", required = true)
     @Length(min = 0, max = 30)
     private String email;
 

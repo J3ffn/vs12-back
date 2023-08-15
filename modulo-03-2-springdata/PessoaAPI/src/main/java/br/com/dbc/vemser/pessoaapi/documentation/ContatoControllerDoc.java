@@ -48,8 +48,8 @@ public interface ContatoControllerDoc {
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")
             }
     )
-    @PostMapping
-    ResponseEntity<ContatoOutputDTO> create(@Valid @RequestBody ContatoInputDTO contato) throws EnumException;
+    @PostMapping("/{idPessoa}")
+    ResponseEntity<ContatoOutputDTO> create(@PathVariable Long idPessoa, @Valid @RequestBody ContatoInputDTO contato) throws EnumException, RegraDeNegocioException;
 
     @Operation(summary = "Atualizar informações de um contato", description = "Altera campos de informações de um contato.")
     @ApiResponses(

@@ -2,15 +2,20 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.PessoaInputDTO;
-import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputDTO;
-import br.com.dbc.vemser.pessoaapi.model.Pessoa;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.*;
+import br.com.dbc.vemser.pessoaapi.model.entity.Endereco;
+import br.com.dbc.vemser.pessoaapi.model.entity.Pessoa;
+import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
+import br.com.dbc.vemser.pessoaapi.utils.TapedQuery;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 
@@ -32,7 +37,7 @@ public class PessoaService {
         return objectMapper.convertValue(pessoaCriada, PessoaOutputDTO.class);
     }
 
-    public List<PessoaOutputDTO> list() {
+    public List<PessoaOutputDTO> findAll() {
         return pessoaRepository.findAll()
                 .stream()
                 .map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputDTO.class))
@@ -47,7 +52,7 @@ public class PessoaService {
         pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
         pessoaRecuperada.setEmail(pessoaAtualizar.getEmail());
 
-        emailService.sendTemplateMailUpdateAccount(pessoaRecuperada);
+//        emailService.sendTemplateMailUpdateAccount(pessoaRecuperada);
 
         pessoaRepository.save(pessoaRecuperada);
 
@@ -63,8 +68,36 @@ public class PessoaService {
     public List<PessoaOutputDTO> listByName(String nome) {
         return pessoaRepository.findByNome(nome)
                 .stream()
-                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputDTO.class))
+                .map(this::PessoaToDTO)
                 .toList();
+    }
+
+    public PessoaOutputDTO findById(Long idBuscado) throws RegraDeNegocioException {
+        return objectMapper.convertValue(getPessoa(idBuscado), PessoaOutputDTO.class);
+    }
+
+    public List<PessoaOutputEnderecosDTO> findAllWithEnderecos(Long idPessoa) throws RegraDeNegocioException {
+
+        return pessoaRepository.findAllComOptional(idPessoa)
+                .stream()
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputEnderecosDTO.class)).toList();
+    }
+
+    public List<PessoaOutputContatoDTO> findPessoasWithContatos(Long idPessoa) throws RegraDeNegocioException {
+
+        return pessoaRepository.findAllComOptional(idPessoa)
+                .stream()
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputContatoDTO.class))
+                .toList();
+    }
+
+    public List<PessoaOutputPetsDTO> findPessoasWithPets(Long idPessoa) throws RegraDeNegocioException {
+
+        return pessoaRepository.findAllComOptional(idPessoa)
+                .stream()
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputPetsDTO.class))
+                .toList();
+
     }
 
     private Pessoa getPessoa(Long id) throws RegraDeNegocioException {
@@ -74,7 +107,8 @@ public class PessoaService {
                 .orElseThrow(() -> new RegraDeNegocioException("Não encontrou!"));
     }
 
-    public PessoaOutputDTO findById(Long idBuscado) throws RegraDeNegocioException {
-        return objectMapper.convertValue(getPessoa(idBuscado), PessoaOutputDTO.class);
+    private PessoaOutputDTO PessoaToDTO(Pessoa pessoa) {
+        return objectMapper.convertValue(pessoa, PessoaOutputDTO.class);
     }
+
 }

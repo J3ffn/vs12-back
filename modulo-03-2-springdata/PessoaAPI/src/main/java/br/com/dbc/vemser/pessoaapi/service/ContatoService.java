@@ -2,33 +2,32 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.exception.EnumException;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
+import br.com.dbc.vemser.pessoaapi.model.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.ContatoInputDTO;
 import br.com.dbc.vemser.pessoaapi.model.dto.output.ContatoOutputDTO;
-import br.com.dbc.vemser.pessoaapi.model.Contato;
-import br.com.dbc.vemser.pessoaapi.model.TipoContato;
+import br.com.dbc.vemser.pessoaapi.model.entity.Contato;
+import br.com.dbc.vemser.pessoaapi.model.entity.TipoContato;
 import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
+import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+
+@RequiredArgsConstructor
 public class ContatoService {
 
     private final ContatoRepository contatoRepository;
 
+    private final PessoaService pessoaService;
+
     private final ObjectMapper objectMapper;
 
-    @Autowired
-    public ContatoService(ContatoRepository contatoRepository, ObjectMapper objectMapper) {
-        this.contatoRepository = contatoRepository;
-        this.objectMapper = objectMapper;
-    }
-
-    public ContatoOutputDTO create(ContatoInputDTO contato) throws EnumException {
-
-        checarEnum(contato.getTipoContato());
+    public ContatoOutputDTO create(Long idPessoa, ContatoInputDTO contato) throws EnumException, RegraDeNegocioException {
+        contato.setIdPessoa(idPessoa);
 
         Contato contatoConvertido = objectMapper.convertValue(contato, Contato.class);
 
@@ -37,7 +36,7 @@ public class ContatoService {
         return objectMapper.convertValue(contatoConvertido, ContatoOutputDTO.class);
     }
 
-    public List<ContatoOutputDTO> list() {
+    public List<ContatoOutputDTO> findAll() {
         return contatoRepository.findAll()
                 .stream()
                 .map(contato -> objectMapper.convertValue(contato, ContatoOutputDTO.class))
@@ -46,14 +45,15 @@ public class ContatoService {
 
     public ContatoOutputDTO update(Long id, ContatoInputDTO contatoAtualizar) throws RegraDeNegocioException, EnumException {
 
-        TipoContato tipoContato = checarEnum(contatoAtualizar.getTipoContato());
+        TipoContato tipoContato = this.checarEnum(contatoAtualizar.getTipoContato());
+        Pessoa pessoaBuscada = objectMapper.convertValue(pessoaService.findById(contatoAtualizar.getIdPessoa()), Pessoa.class);
 
         Contato contatoRecuperado = getContato(id);
 
         contatoRecuperado.setIdContato(id);
-        contatoRecuperado.setIdPessoa(contatoAtualizar.getIdPessoa());
+        contatoRecuperado.setPessoa(pessoaBuscada);
         contatoRecuperado.setDescricao(contatoAtualizar.getDescricao());
-        contatoRecuperado.setTipoContato(tipoContato.name());
+        contatoRecuperado.setTipoContato(tipoContato);
         contatoRecuperado.setNumero(contatoAtualizar.getNumero());
 
         contatoRepository.save(contatoRecuperado);
@@ -67,7 +67,7 @@ public class ContatoService {
     }
 
     public List<ContatoOutputDTO> getContatosByIdUsuario(Long idPessoa) {
-        return list().stream().filter(contato -> contato.getIdPessoa().equals(idPessoa))
+        return findAll().stream().filter(contato -> contato.getIdPessoa().equals(idPessoa))
                 .map(contato -> objectMapper.convertValue(contato, ContatoOutputDTO.class))
                 .toList();
     }

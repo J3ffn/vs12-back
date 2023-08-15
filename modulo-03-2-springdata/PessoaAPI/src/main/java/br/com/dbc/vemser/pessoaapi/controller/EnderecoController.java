@@ -5,6 +5,7 @@ import br.com.dbc.vemser.pessoaapi.exception.EnumException;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.EnderecoInputDTO;
 import br.com.dbc.vemser.pessoaapi.model.dto.output.EnderecoOutputDTO;
+import br.com.dbc.vemser.pessoaapi.model.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class EnderecoController implements EnderecoControllerDoc {
 
     @GetMapping
     public ResponseEntity<List<EnderecoOutputDTO>> list() {
-        return ResponseEntity.ok().body(enderecoService.list());
+        return ResponseEntity.ok().body(enderecoService.findAll());
     }
 
     @GetMapping("/{idEndereco}")
@@ -37,10 +38,9 @@ public class EnderecoController implements EnderecoControllerDoc {
         return ResponseEntity.ok().body(enderecoById);
     }
 
-    @GetMapping("/{idPessoa}/pessoa")
-    public ResponseEntity<List<EnderecoOutputDTO>> getEnderecosByIdPessoa(@Positive @PathVariable Long idPessoa) {
-        List<EnderecoOutputDTO> enderecosByIdUsuario = enderecoService.getEnderecosByIdPessoa(idPessoa);
-        return ResponseEntity.ok().body(enderecosByIdUsuario);
+    @Override
+    public ResponseEntity<List<EnderecoOutputDTO>> getEnderecosByIdPessoa(Long idPessoa) {
+        return null;
     }
 
     @PostMapping("/{idPessoa}")

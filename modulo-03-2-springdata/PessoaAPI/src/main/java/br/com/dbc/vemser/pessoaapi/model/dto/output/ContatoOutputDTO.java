@@ -1,24 +1,29 @@
 package br.com.dbc.vemser.pessoaapi.model.dto.output;
 
-import br.com.dbc.vemser.pessoaapi.model.dto.input.ContatoInputDTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-
-@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class ContatoOutputDTO extends ContatoInputDTO {
+public class ContatoOutputDTO {
 
-    @NotNull
     @Schema(description = "Id da pessoa", example = "2", required = true)
     private Long idContato;
 
+    @Schema(description = "Id da pessoa", example = "2", required = true)
+    private Long idPessoa;
+
+    @Schema(description = "Tipo do contato", example = "RESIDENCIAL", required = true, enumAsRef = true)
+    private String tipoContato;
+
+    @Schema(description = "Número de contato", example = "83993256846", required = true)
+    private String numero;
+
+    @Schema(description = "Descrição de contato", example = "Número do mercado", required = true)
+    private String descricao;
 
 }

@@ -29,7 +29,7 @@ public class ContatoController implements ContatoControllerDoc {
 
     @GetMapping
     public ResponseEntity<List<ContatoOutputDTO>> list() {
-        return ResponseEntity.ok().body(contatoService.list());
+        return ResponseEntity.ok().body(contatoService.findAll());
     }
 
     @GetMapping("/pessoa/{idPessoa}")
@@ -37,9 +37,9 @@ public class ContatoController implements ContatoControllerDoc {
         return contatoService.getContatosByIdUsuario(idPessoa);
     }
 
-    @PostMapping
-    public ResponseEntity<ContatoOutputDTO> create(@Valid @RequestBody ContatoInputDTO contato) throws EnumException {
-        return ResponseEntity.ok().body(contatoService.create(contato));
+    @PostMapping("/{idPessoa}")
+    public ResponseEntity<ContatoOutputDTO> create(@PathVariable Long idPessoa, @Valid @RequestBody ContatoInputDTO contato) throws EnumException, RegraDeNegocioException {
+        return ResponseEntity.ok().body(contatoService.create(idPessoa, contato));
     }
 
     @PutMapping("/{idContato}")
@@ -53,4 +53,10 @@ public class ContatoController implements ContatoControllerDoc {
         contatoService.delete(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/listar-com-enderecos")
+    public ResponseEntity<List<ContatoOutputDTO>>  findAllContatoWithEndereco() {
+        return this.list();
+    }
+
 }

@@ -17,11 +17,6 @@ import javax.validation.constraints.Positive;
 
 public class EnderecoInputDTO {
 
-    @Schema(description = "Id de pessoa", example = "RESIDENCIAL", required = true)
-    @NotNull
-    @Column(name = "id_pessoa")
-    private Long idPessoa;
-
     @NotNull
     @Schema(description = "Tipo do contato", example = "COMERCIAL", required = true, enumAsRef = true)
     private String tipoEndereco;

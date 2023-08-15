@@ -3,7 +3,10 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.documentation.PessoaControllerDoc;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.PessoaInputDTO;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputContatoDTO;
 import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputDTO;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputEnderecosDTO;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputPetsDTO;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import br.com.dbc.vemser.pessoaapi.utils.PropertieReader;
 import lombok.Getter;
@@ -69,17 +72,17 @@ public class PessoaController implements PessoaControllerDoc {
     }
 
     @GetMapping("/listar-com-enderecos")
-    public ResponseEntity<List<PessoaOutputDTO>> findPessoasWithEnderecos(@Positive @RequestParam(required = false) Long idPessoa) throws RegraDeNegocioException {
+    public ResponseEntity<List<PessoaOutputEnderecosDTO>> findPessoasWithEnderecos(@Positive @RequestParam(required = false) Long idPessoa) throws RegraDeNegocioException {
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.findAllWithEnderecos(idPessoa));
     }
 
     @GetMapping("/listar-com-contatos")
-    public ResponseEntity<List<PessoaOutputDTO>> findPessoasWithContatos(@Positive @RequestParam(required = false) Long idContato) throws RegraDeNegocioException {
+    public ResponseEntity<List<PessoaOutputContatoDTO>> findPessoasWithContatos(@Positive @RequestParam(required = false) Long idContato) throws RegraDeNegocioException {
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.findPessoasWithContatos(idContato));
     }
 
     @GetMapping("/listar-com-pets")
-    public ResponseEntity<List<PessoaOutputDTO>> findPessoasWithPets(@Positive @RequestParam(required = false) Long idPet) throws RegraDeNegocioException {
+    public ResponseEntity<List<PessoaOutputPetsDTO>> findPessoasWithPets(@Positive @RequestParam(required = false) Long idPet) throws RegraDeNegocioException {
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.findPessoasWithPets(idPet));
     }
 

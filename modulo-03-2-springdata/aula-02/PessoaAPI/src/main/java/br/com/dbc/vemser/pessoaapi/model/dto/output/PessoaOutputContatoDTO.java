@@ -1,8 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.model.dto.output;
 
 import br.com.dbc.vemser.pessoaapi.model.entity.Contato;
-import br.com.dbc.vemser.pessoaapi.model.entity.Endereco;
-import br.com.dbc.vemser.pessoaapi.model.entity.Pet;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class PessoaOutputDTO {
+public class PessoaOutputContatoDTO {
 
     @Schema(description = "ID da pessoa salva no banco", example = "1", required = true)
     private Long idPessoa;
@@ -32,21 +30,7 @@ public class PessoaOutputDTO {
     @Schema(description = "Email da pessoa salva no banco", example = "nome@gmail.com", required = true)
     private String email;
 
-    @Schema(description = "Enderecos da pessoa salva no banco", example = """
-            {
-              "tipoEndereco": "COMERCIAL",
-              "logradouro": "Rua amaral batista",
-              "numero": 132,
-              "complemento": "Apartamento",
-              "cep": "58970000",
-              "cidade": "João Pessoa",
-              "estado": "Paraíba",
-              "pais": "RESIDENCIAL"
-            }""", required = false)
-    private Set<Endereco> enderecos;
-
     @Schema(description = "Contatos da pessoa salva no banco", example = "{}")
     private Set<Contato> contatos;
 
-    private Pet pet;
 }

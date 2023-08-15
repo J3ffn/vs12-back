@@ -23,7 +23,7 @@ import java.util.Set;
 public class EnderecoService {
 
     private final EnderecoRepository enderecoRepository;
-    private final PessoaRepository pessoaRepository;
+    private final PessoaService pessoaService;
     private final ObjectMapper objectMapper;
 
 
@@ -35,7 +35,7 @@ public class EnderecoService {
 
         checarEnum(enderecoNovo.getTipoEndereco());
 
-        Pessoa pessoaPorId = pessoaRepository.getById(idPessoa);
+        Pessoa pessoaPorId = objectMapper.convertValue(pessoaService.findById(idPessoa), Pessoa.class);
 
         Endereco endereco = objectMapper.convertValue(enderecoNovo, Endereco.class);
 

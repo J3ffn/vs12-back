@@ -2,8 +2,7 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.PessoaInputDTO;
-import br.com.dbc.vemser.pessoaapi.model.dto.output.EnderecoOutputDTO;
-import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputDTO;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.*;
 import br.com.dbc.vemser.pessoaapi.model.entity.Endereco;
 import br.com.dbc.vemser.pessoaapi.model.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
@@ -26,8 +25,6 @@ public class PessoaService {
     private final PessoaRepository pessoaRepository;
 
     private final ObjectMapper objectMapper;
-
-    private final EnderecoRepository enderecoRepository;
 
     private final EmailService emailService;
 
@@ -71,7 +68,7 @@ public class PessoaService {
     public List<PessoaOutputDTO> listByName(String nome) {
         return pessoaRepository.findByNome(nome)
                 .stream()
-                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputDTO.class))
+                .map(this::PessoaToDTO)
                 .toList();
     }
 
@@ -79,49 +76,28 @@ public class PessoaService {
         return objectMapper.convertValue(getPessoa(idBuscado), PessoaOutputDTO.class);
     }
 
-    public List<PessoaOutputDTO> findAllWithEnderecos(Long idPessoa) throws RegraDeNegocioException {
-        List<PessoaOutputDTO> pessoas = new ArrayList<>();
-        if (idPessoa != null) {
-            Pessoa pessoa = this.getPessoa(idPessoa);
-            pessoa.setContatos(null);
-            pessoa.setPet(null);
+    public List<PessoaOutputEnderecosDTO> findAllWithEnderecos(Long idPessoa) throws RegraDeNegocioException {
 
-            pessoas.add(objectMapper.convertValue(pessoa, PessoaOutputDTO.class));
-        } else {
-            pessoas = this.findAll();
-        }
-
-        return pessoas;
+        return pessoaRepository.findAllComOptional(idPessoa)
+                .stream()
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputEnderecosDTO.class)).toList();
     }
 
-    public List<PessoaOutputDTO> findPessoasWithContatos(Long idPessoa) throws RegraDeNegocioException {
-        List<PessoaOutputDTO> pessoas = new ArrayList<>();
-        if (idPessoa != null) {
-            Pessoa pessoa = this.getPessoa(idPessoa);
-            pessoa.setEnderecos(null);
-            pessoa.setPet(null);
+    public List<PessoaOutputContatoDTO> findPessoasWithContatos(Long idPessoa) throws RegraDeNegocioException {
 
-            pessoas.add(objectMapper.convertValue(pessoa, PessoaOutputDTO.class));
-        } else {
-            pessoas = this.findAll();
-        }
-
-        return pessoas;
+        return pessoaRepository.findAllComOptional(idPessoa)
+                .stream()
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputContatoDTO.class))
+                .toList();
     }
 
-    public List<PessoaOutputDTO> findPessoasWithPets(Long idPessoa) throws RegraDeNegocioException {
-        List<PessoaOutputDTO> pessoas = new ArrayList<>();
-        if (idPessoa != null) {
-            Pessoa pessoa = this.getPessoa(idPessoa);
-            pessoa.setEnderecos(null);
-            pessoa.setContatos(null);
+    public List<PessoaOutputPetsDTO> findPessoasWithPets(Long idPessoa) throws RegraDeNegocioException {
 
-            pessoas.add(objectMapper.convertValue(pessoa, PessoaOutputDTO.class));
-        } else {
-            pessoas = this.findAll();
-        }
+        return pessoaRepository.findAllComOptional(idPessoa)
+                .stream()
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputPetsDTO.class))
+                .toList();
 
-        return pessoas;
     }
 
     private Pessoa getPessoa(Long id) throws RegraDeNegocioException {
@@ -129,6 +105,10 @@ public class PessoaService {
                 .stream()
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException("Não encontrou!"));
+    }
+
+    private PessoaOutputDTO PessoaToDTO(Pessoa pessoa) {
+        return objectMapper.convertValue(pessoa, PessoaOutputDTO.class);
     }
 
 }

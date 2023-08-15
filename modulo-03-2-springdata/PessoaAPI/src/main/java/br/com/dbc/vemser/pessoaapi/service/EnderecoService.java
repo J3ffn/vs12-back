@@ -4,15 +4,18 @@ import br.com.dbc.vemser.pessoaapi.exception.EnumException;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.EnderecoInputDTO;
 import br.com.dbc.vemser.pessoaapi.model.dto.output.EnderecoOutputDTO;
-import br.com.dbc.vemser.pessoaapi.model.Endereco;
-import br.com.dbc.vemser.pessoaapi.model.Pessoa;
-import br.com.dbc.vemser.pessoaapi.model.TipoEndereco;
+import br.com.dbc.vemser.pessoaapi.model.entity.Endereco;
+import br.com.dbc.vemser.pessoaapi.model.entity.Pessoa;
+import br.com.dbc.vemser.pessoaapi.model.entity.TipoEndereco;
 import br.com.dbc.vemser.pessoaapi.repository.EnderecoRepository;
+import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 
@@ -24,44 +27,40 @@ public class EnderecoService {
     private final ObjectMapper objectMapper;
 
 
-    public List<EnderecoOutputDTO> list() {
+    public List<EnderecoOutputDTO> findAll() {
         return enderecoRepository.findAll().stream().map(endereco -> objectMapper.convertValue(endereco, EnderecoOutputDTO.class)).toList();
-    }
-
-    public List<EnderecoOutputDTO> getEnderecosByIdPessoa(Long idPessoa) {
-        return enderecoRepository.findEnderecosByIdPessoa(idPessoa)
-                .stream()
-                .map(endereco -> objectMapper.convertValue(endereco, EnderecoOutputDTO.class))
-                .toList();
     }
 
     public EnderecoOutputDTO create(Long idPessoa, EnderecoInputDTO enderecoNovo) throws Exception {
 
-        Pessoa pessoaPorId = objectMapper.convertValue(pessoaService.findById(idPessoa), Pessoa.class);
-
         checarEnum(enderecoNovo.getTipoEndereco());
+
+        Pessoa pessoaPorId = objectMapper.convertValue(pessoaService.findById(idPessoa), Pessoa.class);
 
         Endereco endereco = objectMapper.convertValue(enderecoNovo, Endereco.class);
 
-        endereco.setIdPessoa(pessoaPorId.getIdPessoa());
+//        pessoaPorId.setEnderecos(new HashSet<>());
+        pessoaPorId.getEnderecos().add(endereco);
+
+//        endereco.setPessoas(new HashSet<>());
+        endereco.getPessoas().add(pessoaPorId);
 
         return objectMapper.convertValue(enderecoRepository.save(endereco), EnderecoOutputDTO.class);
     }
 
     public EnderecoOutputDTO update(Long idEndereco, EnderecoInputDTO enderecoModificado) throws RegraDeNegocioException, EnumException {
-        this.checarEnum(enderecoModificado.getTipoEndereco());
+        TipoEndereco tipoEndereco = this.checarEnum(enderecoModificado.getTipoEndereco());
 
         Endereco enderecoResgatado = enderecoRepository.findById(idEndereco).stream().findFirst().orElseThrow(() -> new RegraDeNegocioException("Não encontrado!"));
 
-        enderecoResgatado.setIdPessoa(enderecoModificado.getIdPessoa());
         enderecoResgatado.setCep(enderecoModificado.getCep());
         enderecoResgatado.setCidade(enderecoModificado.getCidade());
         enderecoResgatado.setEstado(enderecoModificado.getEstado());
         enderecoResgatado.setComplemento(enderecoModificado.getComplemento());
         enderecoResgatado.setLogradouro(enderecoModificado.getLogradouro());
-        enderecoResgatado.setNumero(enderecoModificado.getNumero());
+        enderecoResgatado.setNumero(enderecoModificado.getNumero().longValue());
         enderecoResgatado.setPais(enderecoModificado.getPais());
-        enderecoResgatado.setTipoEndereco(enderecoModificado.getTipoEndereco());
+        enderecoResgatado.setTipoEndereco(tipoEndereco);
 
         enderecoRepository.save(enderecoResgatado);
 
@@ -78,9 +77,14 @@ public class EnderecoService {
         return objectMapper.convertValue(endereco, EnderecoOutputDTO.class);
     }
 
-    private void checarEnum(String tipo) throws EnumException {
+    public Set<EnderecoOutputDTO> findEnderecosByIdPessoa(Long idPessoa) {
+//        return enderecoRepository.findByIdWithEnderecos(idPessoa).stream().map(endereco -> objectMapper.convertValue(endereco, EnderecoOutputDTO.class)).collect(Collectors.toSet());
+        return new HashSet<>(findAll());
+    }
+
+    private TipoEndereco checarEnum(String tipo) throws EnumException {
         try {
-            TipoEndereco.valueOf(tipo);
+            return TipoEndereco.valueOf(tipo);
         } catch (IllegalArgumentException e) {
             throw new EnumException("Tipo de contato inválido!");
         }

@@ -26,7 +26,7 @@ public interface PessoaControllerDoc {
             }
     )
     @GetMapping
-    List<PessoaOutputDTO> list();
+    List<PessoaOutputDTO> findAll();
 
     @Operation(summary = "Listar pessoas pelo nome.", description = "Lista todas as pessoas do banco por um nome específico")
     @ApiResponses(

@@ -3,10 +3,16 @@ package br.com.dbc.vemser.pessoaapi.controller;
 import br.com.dbc.vemser.pessoaapi.documentation.PessoaControllerDoc;
 import br.com.dbc.vemser.pessoaapi.exception.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.model.dto.input.PessoaInputDTO;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputContatoDTO;
 import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputDTO;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputEnderecosDTO;
+import br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputPetsDTO;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import br.com.dbc.vemser.pessoaapi.utils.PropertieReader;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -16,7 +22,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pessoa") // localhost:8080/pessoa
+@RequestMapping("/pessoa")
 public class PessoaController implements PessoaControllerDoc {
 
     private final PessoaService pessoaService;
@@ -30,8 +36,8 @@ public class PessoaController implements PessoaControllerDoc {
     }
 
     @GetMapping
-    public List<PessoaOutputDTO> list() {
-        return pessoaService.list();
+    public List<PessoaOutputDTO> findAll() {
+        return pessoaService.findAll();
     }
 
     @GetMapping("/byname")
@@ -63,6 +69,21 @@ public class PessoaController implements PessoaControllerDoc {
     @GetMapping("/ambiente")
     public String getAmbiente() {
         return propertieReader.getAmbiente();
+    }
+
+    @GetMapping("/listar-com-enderecos")
+    public ResponseEntity<List<PessoaOutputEnderecosDTO>> findPessoasWithEnderecos(@Positive @RequestParam(required = false) Long idPessoa) throws RegraDeNegocioException {
+        return ResponseEntity.status(HttpStatus.OK).body(pessoaService.findAllWithEnderecos(idPessoa));
+    }
+
+    @GetMapping("/listar-com-contatos")
+    public ResponseEntity<List<PessoaOutputContatoDTO>> findPessoasWithContatos(@Positive @RequestParam(required = false) Long idContato) throws RegraDeNegocioException {
+        return ResponseEntity.status(HttpStatus.OK).body(pessoaService.findPessoasWithContatos(idContato));
+    }
+
+    @GetMapping("/listar-com-pets")
+    public ResponseEntity<List<PessoaOutputPetsDTO>> findPessoasWithPets(@Positive @RequestParam(required = false) Long idPet) throws RegraDeNegocioException {
+        return ResponseEntity.status(HttpStatus.OK).body(pessoaService.findPessoasWithPets(idPet));
     }
 
 }
