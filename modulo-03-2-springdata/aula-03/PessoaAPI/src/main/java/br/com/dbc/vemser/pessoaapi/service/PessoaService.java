@@ -7,6 +7,8 @@ import br.com.dbc.vemser.pessoaapi.model.entity.Pessoa;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -113,4 +115,7 @@ public class PessoaService {
         return objectMapper.convertValue(pessoa, PessoaOutputDTO.class);
     }
 
+    public Page<PessoaOutputDTO> pessoaPaginada(Pageable pageable) {
+        return pessoaRepository.findAll(pageable).map(pessoa -> objectMapper.convertValue(pessoa, PessoaOutputDTO.class));
+    }
 }

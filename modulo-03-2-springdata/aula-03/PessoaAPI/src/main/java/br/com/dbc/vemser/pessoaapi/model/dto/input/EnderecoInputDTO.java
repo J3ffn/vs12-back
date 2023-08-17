@@ -55,7 +55,7 @@ public class EnderecoInputDTO {
     private String estado;
 
     @NotNull
-    @Schema(description = "País do endereço", example = "RESIDENCIAL", required = true)
+    @Schema(description = "País do endereço", example = "Brasil", required = true)
     @Length(min = 1, max = 20)
     private String pais;
 

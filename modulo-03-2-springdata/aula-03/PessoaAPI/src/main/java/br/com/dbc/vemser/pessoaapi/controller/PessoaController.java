@@ -7,12 +7,20 @@ import br.com.dbc.vemser.pessoaapi.model.dto.output.mapeamentoPessoa.*;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import br.com.dbc.vemser.pessoaapi.utils.PropertieReader;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.swing.text.html.HTML;
+import javax.swing.text.html.HTMLDocument;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -88,5 +96,14 @@ public class PessoaController implements PessoaControllerDoc {
     public ResponseEntity<List<PessoaOutputRelatorioDTO>> findPessoasByIdOrAll()  {
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.relatorio());
     }
+
+//    @GetMapping("/paginado")
+//    public ResponseEntity<Page<PessoaOutputDTO>> pessoaPaginada(@RequestParam Integer pagina, @RequestParam Integer quantidade){
+//        Sort ordenacao = Sort.by("nome").descending()
+//                .and(Sort.by("cpf"));
+//
+//        Pageable pageable = PageRequest.of(pagina, quantidade, ordenacao);
+//        return ResponseEntity.status(HttpStatus.OK).body(pessoaService.pessoaPaginada(pageable));
+//    }
 
 }

@@ -1,5 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.repository;
 
+import br.com.dbc.vemser.pessoaapi.model.dto.output.mapeamentoPessoa.PessoaOutputRelatorioDTO;
 import br.com.dbc.vemser.pessoaapi.model.entity.Pessoa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,13 +20,17 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 
     List<Pessoa> findByNome(String nome);
 
-//    @Query(" select new br.com.dbc.vemser.pessoaapi.model.dto.output.PessoaOutputRelatorioDTO.java(" +
+    
+//    @Query(value = "select new br.com.dbc.vemser.pessoaapi.model.dto.output.mapeamentoPessoa.PessoaOutputRelatorioDTO(" +
 //            "p.idPessoa," +
-//            "p.contatos" +
-//            ")" +
+//            "p.nome," +
+//            "p.email," +
+//            "p.enderecos," +
+//            "p.contatos," +
+//            "p.pet)" +
 //            "from PESSOA p " +
-//            "INNER JOIN CONTATO c " +
-//            "where p")
+//            "INNER JOIN p.contatos c " +
+//            "WHERE c.descricao = :descricao")
 //    List<PessoaOutputRelatorioDTO> findAllWithPessoa();
 
 }

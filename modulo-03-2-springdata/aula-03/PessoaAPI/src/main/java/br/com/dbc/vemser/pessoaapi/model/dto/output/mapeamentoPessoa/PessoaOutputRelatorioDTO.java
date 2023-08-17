@@ -33,4 +33,5 @@ public class PessoaOutputRelatorioDTO {
 
     @Schema(description = "Nome do pet")
     private PetOutputRelatorioDTO pet;
+
 }
