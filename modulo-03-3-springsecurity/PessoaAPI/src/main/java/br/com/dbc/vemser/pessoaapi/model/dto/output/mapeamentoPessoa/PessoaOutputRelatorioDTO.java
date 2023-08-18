@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import java.util.Set;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 
 public class PessoaOutputRelatorioDTO {
@@ -34,4 +33,12 @@ public class PessoaOutputRelatorioDTO {
     @Schema(description = "Nome do pet")
     private Set<PetOutputRelatorioDTO> pet;
 
+    public PessoaOutputRelatorioDTO(Long idPessoa, String nome, String email, Set<EnderecoOutputRelatorioDTO> enderecos, Set<ContatoOutputRelatorioDTO> contatos, Set<PetOutputRelatorioDTO> pet) {
+        this.idPessoa = idPessoa;
+        this.nome = nome;
+        this.email = email;
+        this.enderecos = enderecos;
+        this.contatos = contatos;
+        this.pet = pet;
+    }
 }

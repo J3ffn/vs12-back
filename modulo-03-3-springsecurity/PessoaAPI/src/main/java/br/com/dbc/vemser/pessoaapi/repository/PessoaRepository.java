@@ -21,16 +21,16 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
     List<Pessoa> findByNome(String nome);
 
     
-//    @Query(value = "select new br.com.dbc.vemser.pessoaapi.model.dto.output.mapeamentoPessoa.PessoaOutputRelatorioDTO(" +
-//            "p.idPessoa," +
-//            "p.nome," +
-//            "p.email," +
-//            "p.enderecos," +
-//            "p.contatos," +
-//            "p.pet)" +
-//            "from PESSOA p " +
-//            "INNER JOIN p.contatos c " +
-//            "WHERE c.descricao = :descricao")
-//    List<PessoaOutputRelatorioDTO> findAllWithPessoa();
+    @Query(value = "select new br.com.dbc.vemser.pessoaapi.model.dto.output.mapeamentoPessoa.PessoaOutputRelatorioDTO(" +
+            "p.idPessoa," +
+            "p.nome," +
+            "p.email," +
+            "p.enderecos," +
+            "p.contatos," +
+            "p.pet)" +
+            "from PESSOA p " +
+            "INNER JOIN p.contatos c " +
+            "WHERE c.descricao = :descricao")
+    List<PessoaOutputRelatorioDTO> findAllWithPessoa();
 
 }
