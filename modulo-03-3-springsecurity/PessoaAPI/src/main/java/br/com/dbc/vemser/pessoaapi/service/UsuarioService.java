@@ -6,6 +6,7 @@ import br.com.dbc.vemser.pessoaapi.repository.UsuarioRepository;
 import br.com.dbc.vemser.pessoaapi.security.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,9 +17,10 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     private String generateToken(String senha) {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder.encode(senha);
+        return passwordEncoder.encode(senha);
     }
 
     public LoginDTO save(LoginDTO loginDTO) {
