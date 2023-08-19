@@ -42,8 +42,8 @@ public class AuthController {
     }
 
     @PostMapping("/cadastro")
-    public LoginDTO registreUser(@RequestBody @Valid LoginDTO loginDTO) {
-        return usuarioService.save(loginDTO);
+    public UsuarioEntity registreUser(@RequestBody @Valid LoginDTO loginDTO, @RequestParam String role) throws RegraDeNegocioException {
+        return usuarioService.save(loginDTO, role);
     }
 
 }

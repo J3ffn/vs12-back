@@ -3,6 +3,7 @@ package br.com.dbc.vemser.pessoaapi.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,8 +29,15 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .authorizeHttpRequests((authz) -> authz
                         .antMatchers("/auth", "/").permitAll()
-                        .antMatchers("/auth/cadastro", "/").permitAll()
-                        .anyRequest().authenticated()
+                        .antMatchers(HttpMethod.GET, "/pet").hasAnyRole("ADMIN", "MARKETING")
+                        .antMatchers(HttpMethod.GET, "/professor/**").hasAnyRole("ADMIN", "MARKETING")
+                        .antMatchers(HttpMethod.GET).hasAnyRole("ADMIN", "MARKETING", "USUARIO")
+                        .antMatchers(HttpMethod.POST, "/pet/**", "/auth/*", "/professor/**").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.POST, "/**").hasRole("USUARIO")
+                        .antMatchers(HttpMethod.PUT).hasRole("ADMIN")
+                        .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
+//                        .antMatchers("/pet", "/**").hasAnyRole("ADMIN", "MARKETING")
+                        .anyRequest().denyAll()
                 );
         http.addFilterBefore(new TokenAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
 
