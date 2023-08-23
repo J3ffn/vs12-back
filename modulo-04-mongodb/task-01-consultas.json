@@ -1,0 +1,13 @@
+<!-- Búscas: -->
+
+bd.alunos.find({"nome": "Jeff"})
+{"nome": "Jeff"}
+
+bd.alunos.find({"nome": /[Rr]icardo/})
+{"nome": /[Rr]icardo/}
+
+bd.alunos.find({"nome": /minusculo/})
+{"nome": /minusculo/}
+
+bd.alunos.find({data_nascimento: { $gte: ISODate("2000-01-01T00:00:00Z"), $lte: ISODate("2023-12-31T23:59:59Z")}})
+{data_nascimento: { $gte: ISODate("2000-01-01T00:00:00Z"), $lte: ISODate("2023-12-31T23:59:59Z")}}
