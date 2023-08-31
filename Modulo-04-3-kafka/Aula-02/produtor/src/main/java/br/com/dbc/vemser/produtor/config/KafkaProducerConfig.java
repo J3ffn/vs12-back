@@ -29,7 +29,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaAdmin.NewTopics  topics() {
+    public KafkaAdmin.NewTopics topics() {
         return new KafkaAdmin.NewTopics(
                 TopicBuilder.name(kafkaTopic).partitions(3).replicas(1).build()
         );

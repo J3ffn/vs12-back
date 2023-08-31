@@ -1,6 +1,7 @@
 package br.com.dbc.vemser.consumer.exceptions;
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.SpringApplication;
 import org.springframework.kafka.listener.KafkaListenerErrorHandler;
 import org.springframework.kafka.listener.ListenerExecutionFailedException;
 import org.springframework.messaging.Message;
